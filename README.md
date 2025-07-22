@@ -1,5 +1,9 @@
 # VRMarchingCubeEditorForUnity
-Currently in development
+Goal: Use VR to design scenes.
+
+## Current state
+- Currently in early development
+- Currently designed for play mode use
 
 ## Requrements
 ### Unity 3D
