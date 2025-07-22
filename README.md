@@ -9,5 +9,5 @@ Tested with 2022.3.22f1 with BIRP
 Follow the first part of this until 4:28  
 https://www.youtube.com/watch?v=DhqCLamOIQk
 
-### Marching Cube Editor
-https://github.com/iffn/MarchingCubeEditorForUnity
+### Marching Cube Editor on Playmode Editor branch
+https://github.com/iffn/MarchingCubeEditorForUnity/tree/PlaymodeEditor
