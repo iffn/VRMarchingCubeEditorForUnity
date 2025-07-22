@@ -10,8 +10,10 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class VRSimplePaint : PlaymodeEditor
 {
     [SerializeField] private InputActionProperty editAction;
+    [SerializeField] private InputActionProperty scaleActionOnY;
 
     [SerializeField] float scaleSpeed = 1f;
+    [SerializeField] float scaleThreshold = 0.01f;
     [SerializeField] Transform toolOrigin;
 
     void OnEnable()
@@ -36,6 +38,13 @@ public class VRSimplePaint : PlaymodeEditor
         {
             BaseModificationTools.IVoxelModifier modifier = new BaseModificationTools.AddShapeModifier();
             linkedMarchingCubeController.ModificationManager.ModifyData(placeableByClick, modifier);
+        }
+
+        float scaleValue = scaleActionOnY.action.ReadValue<Vector2>().y;
+
+        if(Mathf.Abs(scaleValue) > scaleThreshold)
+        {
+            placeableByClick.transform.localScale *= scaleValue * scaleSpeed * Time.deltaTime;
         }
     }
 }

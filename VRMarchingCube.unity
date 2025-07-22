@@ -1868,6 +1868,64 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &751530739
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 751530741}
+  - component: {fileID: 751530740}
+  m_Layer: 0
+  m_Name: AxisDebugger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &751530740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751530739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724c581fe2cf6824bb1ba063459c1cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Input
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 6c1d13ac-094d-488b-8430-056bf60a7a47
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -8198699208435500284, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  IsPressed: 0
+  ReadValueVector2: {x: 0, y: 0}
+--- !u!4 &751530741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751530739}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.3819366, y: 1.6397743, z: 3.8413174}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &810620778
 Mesh:
   m_ObjectHideFlags: 0
@@ -2280,7 +2338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9168142743249570444, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_RightHandMoveAction.m_UseReference
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3370,7 +3428,20 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  scaleSpeed: 1
+  scaleActionOnY:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Scale Action On Y
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 01ef12be-3fa4-4967-bfab-d8e01beaed4e
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -8198699208435500284, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  scaleSpeed: 0.1
+  scaleThreshold: 0.01
   toolOrigin: {fileID: 542417859}
 --- !u!4 &1785742769
 Transform:
@@ -3688,3 +3759,4 @@ SceneRoots:
   - {fileID: 1100837636}
   - {fileID: 1785742769}
   - {fileID: 174692171}
+  - {fileID: 751530741}
