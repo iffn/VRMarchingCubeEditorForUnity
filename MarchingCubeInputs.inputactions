@@ -2,17 +2,53 @@
     "name": "MarchingCubeInputs",
     "maps": [
         {
-            "name": "XRI RightHandControls",
+            "name": "MarchingCubeControls",
             "id": "99ce76d3-82c5-4289-9670-2ecffa6833fd",
             "actions": [
                 {
-                    "name": "RightHandScale",
+                    "name": "RightHandStick",
                     "type": "Value",
                     "id": "484c38c9-0fe5-4bca-835e-e612cfa986d8",
                     "expectedControlType": "Analog",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "LeftHandPrimaryButton",
+                    "type": "Button",
+                    "id": "4241b4d0-bfff-43f4-9473-94f3e9400ec1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightHandPrimaryButton",
+                    "type": "Button",
+                    "id": "10b55377-30ec-48c0-bb69-c3abbf974fae",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LeftHandSecondaryButton",
+                    "type": "Button",
+                    "id": "a816b44d-dc08-4981-863d-dea2660b03df",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightHandSecondaryButton",
+                    "type": "Button",
+                    "id": "f6047271-66d1-4e03-b1fa-6a997f41f83c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -23,7 +59,51 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Continuous Move",
-                    "action": "RightHandScale",
+                    "action": "RightHandStick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5e2395c-e732-4b0d-a64e-7f7b480fee20",
+                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftHandPrimaryButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "25e40796-9a2d-49b1-8a91-4d8dad2a0195",
+                    "path": "<XRController>{LeftHand}/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftHandSecondaryButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8564a6d6-fcbd-4bdd-b6a0-63f73f1a7aa3",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightHandPrimaryButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "85a57b28-979c-4f35-98ca-e493081d3c11",
+                    "path": "<XRController>{RightHand}/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightHandSecondaryButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -325,6 +325,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[Disable in VR] - XR Device Simulator'
       objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3358,80 +3362,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778210584}
   m_Mesh: {fileID: 191629579}
---- !u!1 &1785742767
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1785742769}
-  - component: {fileID: 1785742768}
-  m_Layer: 0
-  m_Name: VRSimplePaint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1785742768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1785742767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0a37e65c6f3d084abd6c6b3b07536bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  linkedMarchingCubeController: {fileID: 1573235874}
-  placeableByClick: {fileID: 347820279}
-  editAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Edit
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: f23ad302-44b3-4e52-9bb2-6fe6796de36f
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  scaleActionOnY:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Scale Action On Y
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 01ef12be-3fa4-4967-bfab-d8e01beaed4e
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -7463904747267343651, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
-  linkedCharacterController: {fileID: 87796608}
-  scaleSpeed: 1
-  scaleThreshold: 0.01
-  toolOrigin: {fileID: 87796607}
---- !u!4 &1785742769
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1785742767}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1458528, y: -1.4882946, z: 4.184072}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1855434758
 Mesh:
   m_ObjectHideFlags: 0
@@ -3723,6 +3653,79 @@ MonoBehaviour:
   grassMeshHolder: {fileID: 1125098382}
   grassMeshFilter: {fileID: 1125098385}
   grassMeshRenderer: {fileID: 1125098384}
+--- !u!1001 &1468742099931303705
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2022851915168387242, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: toolOrigin
+      value: 
+      objectReference: {fileID: 87796607}
+    - target: {fileID: 2022851915168387242, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: placeableByClick
+      value: 
+      objectReference: {fileID: 347820279}
+    - target: {fileID: 2022851915168387242, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: linkedCharacterController
+      value: 
+      objectReference: {fileID: 87796608}
+    - target: {fileID: 2022851915168387242, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: linkedMarchingCubeController
+      value: 
+      objectReference: {fileID: 1573235874}
+    - target: {fileID: 6001950580786000009, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: m_Name
+      value: VRSimplePaint
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205163479603429539, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1458528
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205163479603429539, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.4882946
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205163479603429539, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.184072
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205163479603429539, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205163479603429539, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205163479603429539, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205163479603429539, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205163479603429539, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205163479603429539, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205163479603429539, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3730,7 +3733,7 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 347820278}
   - {fileID: 1713538230}
-  - {fileID: 1785742769}
+  - {fileID: 1468742099931303705}
   - {fileID: 751530741}
   - {fileID: 174692171}
   - {fileID: 87796606}

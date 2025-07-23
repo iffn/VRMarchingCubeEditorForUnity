@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6001950580786000009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7205163479603429539}
+  - component: {fileID: 2022851915168387242}
+  m_Layer: 0
+  m_Name: VRSimplePaint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7205163479603429539
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6001950580786000009}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.1458528, y: -1.4882946, z: 4.184072}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2022851915168387242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6001950580786000009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0a37e65c6f3d084abd6c6b3b07536bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkedMarchingCubeController: {fileID: 0}
+  placeableByClick: {fileID: 0}
+  editAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Edit
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: f23ad302-44b3-4e52-9bb2-6fe6796de36f
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  scaleToolOnY:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Scale Tool On Y
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: ea2979dc-5ffc-458c-b3d7-35afce5104ed
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -7463904747267343651, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+  increasePlayerSizeButton:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Increase Player Size Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: a8c4a0c8-ca10-483a-9648-5d04e322c85a
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 6767779624438223983, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+  decreasePlayerSizeButton:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Decrease Player Size Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: f7ea183d-6f3f-4f3c-93ff-4815ebb57776
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -1135033248533279976, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+  subtractButton:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Subtract Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: d6acfe47-c73e-4f81-9651-ea9e5c2dd906
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 4272241828000498266, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+  linkedCharacterController: {fileID: 0}
+  scaleSpeed: 1
+  scaleThreshold: 0.01
+  toolOrigin: {fileID: 0}
