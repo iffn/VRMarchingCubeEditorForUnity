@@ -44,7 +44,7 @@ public class VRSimplePaint : PlaymodeEditor
 
         if(Mathf.Abs(scaleValue) > scaleThreshold)
         {
-            placeableByClick.transform.localScale *= scaleValue * scaleSpeed * Time.deltaTime;
+            placeableByClick.transform.localScale *= 1 + scaleValue * scaleSpeed * Time.deltaTime;
         }
     }
 }
