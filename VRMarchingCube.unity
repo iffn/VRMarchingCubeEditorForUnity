@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -206,7 +206,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2067031}
   m_Mesh: {fileID: 810620778}
---- !u!1001 &129007952
+--- !u!1001 &87796606
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -214,103 +214,64 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2728902658200667494, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3711799367079663623, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      propertyPath: m_SmoothTurnEnabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+    - target: {fileID: 4595286346892922376, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+    - target: {fileID: 4595286346892922376, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+    - target: {fileID: 4595286346892922376, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+    - target: {fileID: 4595286346892922376, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+    - target: {fileID: 4595286346892922376, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+    - target: {fileID: 4595286346892922376, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+    - target: {fileID: 4595286346892922376, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+    - target: {fileID: 4595286346892922376, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+    - target: {fileID: 4595286346892922376, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+    - target: {fileID: 4595286346892922376, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6694496370488184912, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7169631891049266947, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7313654230448209575, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+    - target: {fileID: 7195164496785172374, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
       propertyPath: m_Name
-      value: XR Interaction Setup
-      objectReference: {fileID: 0}
-    - target: {fileID: 7690080512698956842, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      propertyPath: m_LocomotionVignetteProviders.Array.data[0].m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7690080512698956842, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      propertyPath: m_LocomotionVignetteProviders.Array.data[1].m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7690080512698956842, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      propertyPath: m_LocomotionVignetteProviders.Array.data[2].m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7690080512698956842, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      propertyPath: m_LocomotionVignetteProviders.Array.data[3].m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7690080512698956842, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      propertyPath: m_LocomotionVignetteProviders.Array.data[4].m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7690080512698956844, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168142743249570444, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      propertyPath: m_MoveSpeed
-      value: 2
+      value: XR Interaction Setup Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
---- !u!143 &129007953 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
+--- !u!4 &87796607 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8916510060494569869, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
+  m_PrefabInstance: {fileID: 87796606}
+  m_PrefabAsset: {fileID: 0}
+--- !u!143 &87796608 stripped
 CharacterController:
-  m_CorrespondingSourceObject: {fileID: 3127728407712097239, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-  m_PrefabInstance: {fileID: 129007952}
+  m_CorrespondingSourceObject: {fileID: 3297451122470943462, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
+  m_PrefabInstance: {fileID: 87796606}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &174692171
 PrefabInstance:
@@ -362,7 +323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_Name
-      value: XR Device Simulator
+      value: '[Disable in VR] - XR Device Simulator'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1297,11 +1258,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 569825548}
   m_Mesh: {fileID: 535194949}
---- !u!4 &609136486 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9014170783705847996, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-  m_PrefabInstance: {fileID: 129007952}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &616969463
 Mesh:
   m_ObjectHideFlags: 0
@@ -3457,10 +3413,10 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: -7463904747267343651, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
-  linkedCharacterController: {fileID: 129007953}
+  linkedCharacterController: {fileID: 87796608}
   scaleSpeed: 1
   scaleThreshold: 0.01
-  toolOrigin: {fileID: 609136486}
+  toolOrigin: {fileID: 87796607}
 --- !u!4 &1785742769
 Transform:
   m_ObjectHideFlags: 0
@@ -3776,5 +3732,5 @@ SceneRoots:
   - {fileID: 1713538230}
   - {fileID: 1785742769}
   - {fileID: 751530741}
-  - {fileID: 129007952}
   - {fileID: 174692171}
+  - {fileID: 87796606}
