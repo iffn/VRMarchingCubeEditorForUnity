@@ -1,0 +1,93 @@
+{
+    "name": "MarchingCubeInputs",
+    "maps": [
+        {
+            "name": "XRI RightHandControls",
+            "id": "99ce76d3-82c5-4289-9670-2ecffa6833fd",
+            "actions": [
+                {
+                    "name": "RightHandScale",
+                    "type": "Value",
+                    "id": "484c38c9-0fe5-4bca-835e-e612cfa986d8",
+                    "expectedControlType": "Analog",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3f0751fc-23ae-4060-becf-2e2e3375fc73",
+                    "path": "<XRController>{RightHand}/{Primary2DAxis}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Continuous Move",
+                    "action": "RightHandScale",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Generic XR Controller",
+            "bindingGroup": "Generic XR Controller",
+            "devices": [
+                {
+                    "devicePath": "<XRController>{LeftHand}",
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<XRController>{RightHand}",
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<XRController>",
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<WMRHMD>",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Continuous Move",
+            "bindingGroup": "Continuous Move",
+            "devices": [
+                {
+                    "devicePath": "<XRController>{LeftHand}",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<XRController>{RightHand}",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Noncontinuous Move",
+            "bindingGroup": "Noncontinuous Move",
+            "devices": [
+                {
+                    "devicePath": "<XRController>{LeftHand}",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<XRController>{RightHand}",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

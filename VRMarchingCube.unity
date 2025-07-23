@@ -2265,6 +2265,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2728902658200667494, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2728902658200667494, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_EnableTurnAround
       value: 0
       objectReference: {fileID: 0}
@@ -2272,6 +2276,14 @@ PrefabInstance:
       propertyPath: m_LeftHandSnapTurnAction.m_UseReference
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2728902658200667494, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_RightHandSnapTurnAction.m_UseReference
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127728408163665757, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_ActionAssets.Array.data[0]
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
     - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.72
@@ -2338,7 +2350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9168142743249570444, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_RightHandMoveAction.m_UseReference
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
