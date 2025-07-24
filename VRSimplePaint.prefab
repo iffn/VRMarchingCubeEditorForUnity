@@ -105,7 +105,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 4272241828000498266, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+    m_Reference: {fileID: 2143750626503939954, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
   linkedCharacterController: {fileID: 0}
   scaleSpeed: 1
   scaleThreshold: 0.01
