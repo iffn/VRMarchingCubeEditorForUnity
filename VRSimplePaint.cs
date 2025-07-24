@@ -25,6 +25,7 @@ public class VRSimplePaint : PlaymodeEditor
 
     bool scalingActive;
     float initialHandDistance;
+    float initialScale;
 
     [SerializeField] float scaleSpeed = 1f;
     [SerializeField] float scaleThreshold = 0.01f;
@@ -103,16 +104,18 @@ public class VRSimplePaint : PlaymodeEditor
             {
                 scalingActive = true;
 
-                initialHandDistance = HandDistance * CurrentScale;
+                initialHandDistance = HandDistance;
 
                 initialCenter = ControllerCenter;
+
+                initialScale = CurrentScale;
             }
 
-            float newHandDistance = HandDistance * CurrentScale;
+            float newHandDistance = HandDistance;
 
-            float newScale = initialHandDistance / newHandDistance;
+            float newScale = (initialHandDistance * CurrentScale) / newHandDistance;
 
-            scalePlayer(newScale);
+            scalePlayer(newScale * initialScale);
 
             Vector3 newHandCenter = ControllerCenter;
 
