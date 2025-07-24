@@ -54,6 +54,8 @@ public class VRSimplePaint : PlaymodeEditor
         InitializeController();
 
         initializeVREditor();
+
+        placeableByClick.transform.gameObject.SetActive(true);
     }
 
     void Update()
