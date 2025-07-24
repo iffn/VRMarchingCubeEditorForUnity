@@ -119,9 +119,11 @@ public class VRSimplePaint : PlaymodeEditor
 
             Vector3 newHandCenter = ControllerCenter;
 
-            Vector3 offset = newHandCenter - ControllerCenter;
+            Vector3 offset = initialCenter - newHandCenter;
 
             // ToDo: Move player and collider
+            linkedCharacterController.transform.position += offset;
+            groundCollider.position += offset;
         }
         else
         {
