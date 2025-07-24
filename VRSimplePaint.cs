@@ -32,6 +32,7 @@ public class VRSimplePaint : PlaymodeEditor
     [SerializeField] Transform toolOrigin;
     [SerializeField] Transform leftHandController;
     [SerializeField] Transform rightHandController;
+    [SerializeField] Transform scaleIndicator;
 
     float HandDistance => (leftHandController.transform.position - rightHandController.transform.position).magnitude;
     Vector3 ControllerCenter => 0.5f * (leftHandController.transform.position + rightHandController.transform.position);
@@ -67,6 +68,7 @@ public class VRSimplePaint : PlaymodeEditor
         initializeVREditor();
 
         placeableByClick.transform.gameObject.SetActive(true);
+        scaleIndicator.gameObject.SetActive(false);
     }
 
     void Update()
@@ -109,6 +111,8 @@ public class VRSimplePaint : PlaymodeEditor
                 initialCenter = ControllerCenter;
 
                 initialScale = CurrentScale;
+
+                scaleIndicator.gameObject.SetActive(true);
             }
 
             float newHandDistance = HandDistance;
@@ -124,12 +128,17 @@ public class VRSimplePaint : PlaymodeEditor
             // ToDo: Move player and collider
             linkedCharacterController.transform.position += offset;
             groundCollider.position += offset;
+
+            scaleIndicator.position = newHandCenter;
+            scaleIndicator.LookAt(rightHandController.position, Vector3.up);
+            scaleIndicator.localScale = newHandDistance * 0.6f * Vector3.one;
         }
         else
         {
             if (scalingActive)
             {
                 scalingActive = false;
+                scaleIndicator.gameObject.SetActive(false);
             }
         }
     }
