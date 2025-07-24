@@ -106,7 +106,34 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 2143750626503939954, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+  leftHandScaleActivator:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Left Hand Scale Activator
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: c8ea1be2-549b-41a2-b409-782ca3b0d290
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 3842925744296952700, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+  rightHandScaleActivator:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Right Hand Scale Activator
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 9265bbe4-01b6-4dd4-bc0e-081e2be1952b
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 2143750626503939954, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
   linkedCharacterController: {fileID: 0}
+  groundCollider: {fileID: 0}
   scaleSpeed: 1
   scaleThreshold: 0.01
   toolOrigin: {fileID: 0}
+  leftHandController: {fileID: 0}
+  rightHandController: {fileID: 0}

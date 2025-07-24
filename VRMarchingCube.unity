@@ -3653,6 +3653,11 @@ MonoBehaviour:
   grassMeshHolder: {fileID: 1773976664}
   grassMeshFilter: {fileID: 1773976667}
   grassMeshRenderer: {fileID: 1773976666}
+--- !u!4 &2130283249 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8916510062113456492, guid: e8df82a9063de8e4e9ab101c13d278dd, type: 3}
+  m_PrefabInstance: {fileID: 87796606}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1468742099931303705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3669,6 +3674,14 @@ PrefabInstance:
       propertyPath: placeableByClick
       value: 
       objectReference: {fileID: 347820279}
+    - target: {fileID: 2022851915168387242, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: leftHandController
+      value: 
+      objectReference: {fileID: 2130283249}
+    - target: {fileID: 2022851915168387242, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: rightHandController
+      value: 
+      objectReference: {fileID: 87796607}
     - target: {fileID: 2022851915168387242, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
       propertyPath: linkedCharacterController
       value: 
