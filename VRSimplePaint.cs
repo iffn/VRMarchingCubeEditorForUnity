@@ -19,16 +19,9 @@ public class VRSimplePaint : PlaymodeEditor
     [SerializeField] CharacterController linkedCharacterController;
     [SerializeField] Transform groundCollider;
 
-    float defaultHeight;
-    float defaultRadius;
-    Vector3 defaultCenter;
-
-    bool scalingActive;
-    float initialHandDistance;
-    float initialScale;
-
     [SerializeField] float scaleSpeed = 1f;
     [SerializeField] float scaleThreshold = 0.01f;
+    [SerializeField] TMPro.TextMeshPro scaleText;
     [SerializeField] Transform toolOrigin;
     [SerializeField] Transform leftHandController;
     [SerializeField] Transform rightHandController;
@@ -38,7 +31,9 @@ public class VRSimplePaint : PlaymodeEditor
     Vector3 ControllerCenter => 0.5f * (leftHandController.transform.position + rightHandController.transform.position);
     float CurrentScale => linkedCharacterController.transform.localScale.x;
 
-    Vector3 initialCenter;
+    float defaultHeight;
+    Vector3 defaultCenter;
+    float defaultRadius;
 
     void OnEnable()
     {
@@ -100,47 +95,7 @@ public class VRSimplePaint : PlaymodeEditor
             scalePlayer(CurrentScale * (1 - 0.2f * Time.deltaTime));
         }
 
-        if (leftHandScaleActivator.action.IsPressed() && rightHandScaleActivator.action.IsPressed())
-        {
-            if (!scalingActive)
-            {
-                scalingActive = true;
-
-                initialHandDistance = HandDistance;
-
-                initialCenter = ControllerCenter;
-
-                initialScale = CurrentScale;
-
-                scaleIndicator.gameObject.SetActive(true);
-            }
-
-            float newHandDistance = HandDistance;
-
-            float newScale = (initialHandDistance * CurrentScale) / newHandDistance;
-
-            scalePlayer(newScale * initialScale);
-
-            Vector3 newHandCenter = ControllerCenter;
-
-            Vector3 offset = initialCenter - newHandCenter;
-
-            // ToDo: Move player and collider
-            linkedCharacterController.transform.position += offset;
-            groundCollider.position += offset;
-
-            scaleIndicator.position = newHandCenter;
-            scaleIndicator.LookAt(rightHandController.position, Vector3.up);
-            scaleIndicator.localScale = newHandDistance * 0.6f * Vector3.one;
-        }
-        else
-        {
-            if (scalingActive)
-            {
-                scalingActive = false;
-                scaleIndicator.gameObject.SetActive(false);
-            }
-        }
+        HandleScale();
     }
 
     void initializeVREditor()
@@ -161,5 +116,54 @@ public class VRSimplePaint : PlaymodeEditor
         linkedCharacterController.center = scale * defaultCenter;
 
         placeableByClick.transform.localScale *= scaleFactor;
+    }
+
+    Vector3 initialCenter;
+    bool scalingActive;
+    float initialHandDistance;
+    float initialScale;
+
+    void HandleScale()
+    {
+        if (leftHandScaleActivator.action.IsPressed() && rightHandScaleActivator.action.IsPressed())
+        {
+            if (!scalingActive)
+            {
+                initialCenter = ControllerCenter;
+                scalingActive = true;
+                initialHandDistance = HandDistance;
+                initialScale = CurrentScale;
+                scaleIndicator.gameObject.SetActive(true);
+            }
+
+            float newHandDistance = HandDistance;
+
+            float scaleFactor = (initialHandDistance * CurrentScale) / newHandDistance;
+
+            float newScale = scaleFactor * initialScale;
+
+            scalePlayer(newScale);
+
+            Vector3 newHandCenter = ControllerCenter;
+
+            Vector3 offset = initialCenter - newHandCenter;
+
+            // ToDo: Move player and collider
+            linkedCharacterController.transform.position += offset;
+            groundCollider.position += offset;
+
+            scaleIndicator.position = newHandCenter;
+            scaleIndicator.LookAt(rightHandController.position, Vector3.up);
+            scaleIndicator.localScale = newHandDistance * 0.6f * Vector3.one;
+            scaleText.text = newScale.ToString("G4");
+        }
+        else
+        {
+            if (scalingActive)
+            {
+                scalingActive = false;
+                scaleIndicator.gameObject.SetActive(false);
+            }
+        }
     }
 }
