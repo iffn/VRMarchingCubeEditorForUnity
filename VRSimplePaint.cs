@@ -9,6 +9,17 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class VRSimplePaint : PlaymodeEditor
 {
+    [Header("Scene specific")]
+    [SerializeField] CharacterController linkedCharacterController;
+    [SerializeField] Transform groundCollider;
+    [SerializeField] Transform toolOrigin;
+    [SerializeField] Transform leftHandController;
+    [SerializeField] Transform rightHandController;
+    
+    [Header("Settings")]
+    [SerializeField] float scaleSpeed = 1f;
+    [SerializeField] float scaleThreshold = 0.01f;
+
     [SerializeField] private InputActionProperty editAction;
     [SerializeField] private InputActionProperty scaleToolOnY;
     [SerializeField] private InputActionProperty increasePlayerSizeButton;
@@ -16,15 +27,9 @@ public class VRSimplePaint : PlaymodeEditor
     [SerializeField] private InputActionProperty subtractButton;
     [SerializeField] private InputActionProperty leftHandScaleActivator;
     [SerializeField] private InputActionProperty rightHandScaleActivator;
-    [SerializeField] CharacterController linkedCharacterController;
-    [SerializeField] Transform groundCollider;
-
-    [SerializeField] float scaleSpeed = 1f;
-    [SerializeField] float scaleThreshold = 0.01f;
+    
+    [Header("Prefab")]
     [SerializeField] TMPro.TextMeshPro scaleText;
-    [SerializeField] Transform toolOrigin;
-    [SerializeField] Transform leftHandController;
-    [SerializeField] Transform rightHandController;
     [SerializeField] Transform scaleIndicator;
 
     float HandDistance => (leftHandController.transform.position - rightHandController.transform.position).magnitude;
