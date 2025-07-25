@@ -67,6 +67,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "LeftHandTrigger",
+                    "type": "Button",
+                    "id": "421b7cd4-985d-4693-beb5-b9944669758f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightHandTrigger",
+                    "type": "Button",
+                    "id": "ed21094f-9cd1-42c0-9710-7e1263716765",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -127,6 +145,17 @@
                 },
                 {
                     "name": "",
+                    "id": "156b1ec0-0f21-4626-8226-25b775c6cb9c",
+                    "path": "<XRController>{RightHand}/{GripButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightHandGripButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "181e16c4-66aa-4213-803e-78f4576ab311",
                     "path": "<XRController>{LeftHand}/{GripButton}",
                     "interactions": "",
@@ -138,12 +167,23 @@
                 },
                 {
                     "name": "",
-                    "id": "156b1ec0-0f21-4626-8226-25b775c6cb9c",
-                    "path": "<XRController>{RightHand}/{GripButton}",
+                    "id": "2be24d86-5c01-42ad-8e22-dc4345d55cba",
+                    "path": "<XRController>{LeftHand}/{PrimaryTrigger}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RightHandGripButton",
+                    "action": "LeftHandTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c982687b-74d8-49fa-94a7-c14f0cb55366",
+                    "path": "<XRController>{RightHand}/{PrimaryTrigger}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightHandTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
