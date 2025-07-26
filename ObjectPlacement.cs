@@ -70,8 +70,6 @@ public class ObjectPlacement : MonoBehaviour
                 {
                     handState.held = placeable;
 
-                    Debug.Log(placeable.gameObject.name);
-
                     // Store relative offset
                     handState.offsetPos = Quaternion.Inverse(handTransform.rotation) *
                                           (placeable.transform.position - origin);
