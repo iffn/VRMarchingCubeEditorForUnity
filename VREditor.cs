@@ -16,31 +16,20 @@ public class VREditor : MonoBehaviour
     [SerializeField] Transform toolOrigin;
     [SerializeField] Transform leftHandController;
     [SerializeField] Transform rightHandController;
-    
-    [Header("Settings")]
-    [SerializeField] InputActionProperty increasePlayerSizeButton;
-    [SerializeField] InputActionProperty decreasePlayerSizeButton;
-    [SerializeField] InputActionProperty leftHandScaleActivator;
-    [SerializeField] InputActionProperty rightHandScaleActivator;
 
     [Header("Prefab")]
     [SerializeField] VRMarchingCubeEditor linkedVRMarchingCubeEditor;
     [SerializeField] PlayerController linkedPlayerController;
+    [SerializeField] ObjectPlacement linkedObjectPlacement;
 
     void OnEnable()
     {
-        increasePlayerSizeButton.action.Enable();
-        decreasePlayerSizeButton.action.Enable();
-        leftHandScaleActivator.action.Enable();
-        rightHandScaleActivator.action.Enable();
+        
     }
 
     void OnDisable()
     {
-        increasePlayerSizeButton.action.Disable();
-        decreasePlayerSizeButton.action.Disable();
-        leftHandScaleActivator.action.Disable();
-        rightHandScaleActivator.action.Disable();
+
     }
     void Start()
     {
@@ -52,6 +41,11 @@ public class VREditor : MonoBehaviour
 
         linkedPlayerController.Setup(
             linkedCharacterController,
+            leftHandController,
+            rightHandController
+        );
+
+        linkedObjectPlacement.Setup(
             leftHandController,
             rightHandController
         );
