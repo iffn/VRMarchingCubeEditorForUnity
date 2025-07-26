@@ -27,7 +27,14 @@ public class ToggleReferenceOnEnable : MonoBehaviour
     {
         foreach (GameObject referenceObject in referenceObjects)
         {
-            referenceObject.SetActive(false);
+            try
+            {
+                referenceObject.SetActive(false);
+            }
+            catch (System.Exception e)
+            {
+                // Ignore, gets thrown when the object is destroyed when exiting play mode
+            }
         }
     }
 }

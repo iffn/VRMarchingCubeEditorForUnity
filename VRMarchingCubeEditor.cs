@@ -31,7 +31,14 @@ public class VRMarchingCubeEditor : PlaymodeEditor
         scaleToolOnY.action.Disable();
         subtractButton.action.Disable();
 
-        placeableByClick.gameObject.SetActive(false);
+        try
+        {
+            placeableByClick.gameObject.SetActive(false);
+        }
+        catch(System.Exception e)
+        {
+            // Ignore, gets thrown when the object is destroyed when exiting play mode
+        }
     }
 
     void Start()
