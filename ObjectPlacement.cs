@@ -32,10 +32,14 @@ public class ObjectPlacement : MonoBehaviour
 
     }
 
+    public GameObject debugObject;
+
     void Update()
     {
         HandleHand(leftPickupInput, leftHandController, ref leftHand);
         HandleHand(rightPickupInput, rightHandController, ref rightHand);
+
+        debugObject = leftHand.held != null ? leftHand.held.gameObject : null;
     }
 
     public void Setup(Transform leftHandController, Transform rightHandController)
@@ -58,15 +62,15 @@ public class ObjectPlacement : MonoBehaviour
 
         if (input.action.WasPressedThisFrame())
         {
-            Debug.Log("Pressed");
-
             Collider[] hits = Physics.OverlapSphere(origin, pickupRadius, placeableLayer, QueryTriggerInteraction.Collide);
-            foreach (var hit in hits)
+            foreach (Collider hit in hits)
             {
                 PlaceableObject placeable = hit.GetComponentInParent<PlaceableObject>();
                 if (placeable != null)
                 {
                     handState.held = placeable;
+
+                    Debug.Log(placeable.gameObject.name);
 
                     // Store relative offset
                     handState.offsetPos = Quaternion.Inverse(handTransform.rotation) *

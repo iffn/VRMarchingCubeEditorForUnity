@@ -31,7 +31,7 @@ public class ToggleReferenceOnEnable : MonoBehaviour
             {
                 referenceObject.SetActive(false);
             }
-            catch (System.Exception e)
+            catch
             {
                 // Ignore, gets thrown when the object is destroyed when exiting play mode
             }
