@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ObjectPlacement : MonoBehaviour
+public class ObjectPlacement : MonoBehaviour, OptionUser
 {
     [SerializeField] InputActionProperty leftPickupInput;
     [SerializeField] InputActionProperty rightPickupInput;
     [SerializeField] TransferAsset objectTransferAsset;
+
+    [SerializeField] List<PlaceableObject> placeablePrefabs;
+
+    [SerializeField] OptionSelector toolButtons;
 
     [Header("Detection")]
     [SerializeField] LayerMask placeableLayer;
@@ -19,6 +23,17 @@ public class ObjectPlacement : MonoBehaviour
     PlaceableObject[] moveableObjects;
     private HandState leftHand;
     private HandState rightHand;
+    List<int> placedObjectIndexes = new List<int>();
+    List<PlaceableObject> placedObjects = new List<PlaceableObject>();
+    Tools currentTool = Tools.Move;
+
+    enum Tools
+    {
+        Move,
+        Duplicate,
+        Delete
+    }
+
 
     // Internal hand state struct
     private struct HandState
@@ -35,8 +50,23 @@ public class ObjectPlacement : MonoBehaviour
 
     void Update()
     {
-        HandleHand(leftPickupInput, leftHandController, ref leftHand);
-        HandleHand(rightPickupInput, rightHandController, ref rightHand);
+        switch (currentTool)
+        {
+            case Tools.Move:
+                HandleHandWhenMoving(leftPickupInput, leftHandController, ref leftHand);
+                HandleHandWhenMoving(rightPickupInput, rightHandController, ref rightHand);
+                break;
+            case Tools.Duplicate:
+                HandleHandWhenDuplicating(leftPickupInput, leftHandController);
+                HandleHandWhenDuplicating(rightPickupInput, rightHandController);
+                break;
+            case Tools.Delete:
+                HandleHandWhenDeleting(leftPickupInput, leftHandController);
+                HandleHandWhenDeleting(rightPickupInput, rightHandController);
+                break;
+            default:
+                break;
+        }
     }
 
     public void Setup(Transform leftHandController, Transform rightHandController)
@@ -51,25 +81,88 @@ public class ObjectPlacement : MonoBehaviour
         // Enable input actions
         leftPickupInput.action.Enable();
         rightPickupInput.action.Enable();
+
+        toolButtons.Setup(this, defaultOption: (int)currentTool);
     }
 
-    public void GatherMoveableObjects()
+    public void GatherObjects()
     {
         moveableObjects = Object.FindObjectsOfType<PlaceableObject>();
         objectTransferAsset.ClearTransferDataAndSaveAsset();
+
+        foreach(PlaceableObject obj in moveableObjects)
+        {
+            if(!placedObjects.Contains(obj)) // Note: Could also be done by checking which placeablePrefabs exist in the scene
+                placeablePrefabs.Add(obj);
+        }
+
+        for (int i = 0; i < placeablePrefabs.Count; i++)
+        {
+            placeablePrefabs[i].placingIndex = i;
+        }
     }
 
     public void StoreObjects()
     {
-        objectTransferAsset.StoreObjects(moveableObjects);
+        objectTransferAsset.StoreObjects(moveableObjects, placedObjectIndexes, placedObjects);
     }
 
     public void RestoreObjects()
     {
-        objectTransferAsset.RestoreObjects(Object.FindObjectsOfType<PlaceableObject>());
+        objectTransferAsset.RestoreObjects(Object.FindObjectsOfType<PlaceableObject>(), placedObjects);
     }
 
-    void HandleHand(InputActionProperty input, Transform handTransform, ref HandState handState)
+    public void SelectOption(OptionSelector selector, int optionIndex)
+    {
+        if(selector == toolButtons)
+        {
+            currentTool = (Tools)optionIndex;
+        }
+    }
+
+    void DuplicateObject(PlaceableObject objectToCopy)
+    {
+        PlaceableObject placedObject = Instantiate(objectToCopy);
+        placedObjectIndexes.Add(objectToCopy.placingIndex);
+        placedObject.transform.localPosition += 0.5f * placedObject.transform.localScale;
+    }
+
+    void SpawnObject(int objectID)
+    {
+        PlaceableObject baseObject = placeablePrefabs[objectID];
+
+        PlaceableObject placedObject = Instantiate(baseObject);
+        placedObject.gameObject.SetActive(true);
+        placedObjectIndexes.Add(objectID);
+        placedObjects.Add(placedObject);
+
+        placedObject.transform.position = rightHandController.position;
+        placedObject.placingIndex = baseObject.placingIndex;
+    }
+
+    void DeleteObject(PlaceableObject objectToDelete)
+    {
+        if (objectToDelete == null)
+            return;
+        // Remove from placed objects list
+        if (placedObjects.Contains(objectToDelete))
+        {
+            placedObjects.Remove(objectToDelete);
+        }
+
+        // Remove from indexes
+        if (objectToDelete.placingIndex >= 0 && objectToDelete.placingIndex < placedObjectIndexes.Count)
+        {
+            placedObjectIndexes.Remove(objectToDelete.placingIndex);
+        }
+
+        // ToDo: Fix index
+
+        // Destroy the object
+        Destroy(objectToDelete.gameObject);
+    }
+
+    void HandleHandWhenMoving(InputActionProperty input, Transform handTransform, ref HandState handState)
     {
         Vector3 origin = handTransform.position;
 
@@ -122,4 +215,44 @@ public class ObjectPlacement : MonoBehaviour
             handState.held = null;
         }
     }
+
+    void HandleHandWhenDuplicating(InputActionProperty input, Transform handTransform)
+    {
+        Vector3 origin = handTransform.position;
+
+        if (input.action.WasPressedThisFrame())
+        {
+            Collider[] hits = Physics.OverlapSphere(origin, pickupRadius, placeableLayer, QueryTriggerInteraction.Collide);
+            foreach (Collider hit in hits)
+            {
+                PlaceableObject placeable = hit.GetComponentInParent<PlaceableObject>();
+                if (placeable != null)
+                {
+                    DuplicateObject(placeable);
+                    break;
+                }
+            }
+        }
+    }
+
+    void HandleHandWhenDeleting(InputActionProperty input, Transform handTransform)
+    {
+        Vector3 origin = handTransform.position;
+
+        if (input.action.WasPressedThisFrame())
+        {
+            Collider[] hits = Physics.OverlapSphere(origin, pickupRadius, placeableLayer, QueryTriggerInteraction.Collide);
+            foreach (Collider hit in hits)
+            {
+                PlaceableObject placeable = hit.GetComponentInParent<PlaceableObject>();
+                if (placeable != null)
+                {
+                    DeleteObject(placeable);
+                    break;
+                }
+            }
+        }
+    }
+
+    
 }

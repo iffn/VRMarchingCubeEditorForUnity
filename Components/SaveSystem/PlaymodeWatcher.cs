@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -45,7 +46,7 @@ public static class PlayModeWatcher
     {
         foreach (ObjectPlacement editor in Object.FindObjectsOfType<ObjectPlacement>(true))
         {
-            editor.GatherMoveableObjects();
+            editor.GatherObjects();
             break;
         }
     }
