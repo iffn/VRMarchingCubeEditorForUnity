@@ -66,6 +66,11 @@ public class VRMarchingCubeEditor : PlaymodeEditor
         }
     }
 
+    public void SaveMarchingCubeData()
+    {
+        SaveData();
+    }
+
     public void Setup(
         Transform toolOrigin,
         MarchingCubesController linkedMarchingCubeController,
