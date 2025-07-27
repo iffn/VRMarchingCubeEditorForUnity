@@ -43,7 +43,11 @@ public static class PlayModeWatcher
 
     private static void OnAfterEnterPlayMode()
     {
-
+        foreach (ObjectPlacement editor in Object.FindObjectsOfType<ObjectPlacement>(true))
+        {
+            editor.GatherMoveableObjects();
+            break;
+        }
     }
 
     private static void OnBeforeExitPlayMode()
@@ -51,18 +55,26 @@ public static class PlayModeWatcher
         // Capture data before it's lost
         if (SaveMarchingCubeData)
         {
-            Debug.Log("Saving marching cube data");
-
-            foreach (VRMarchingCubeEditor editor in Object.FindObjectsOfType<VRMarchingCubeEditor>())
+            foreach (VRMarchingCubeEditor editor in Object.FindObjectsOfType<VRMarchingCubeEditor>(true))
             {
                 editor.SaveMarchingCubeData();
             }
+        }
+
+        foreach (ObjectPlacement editor in Object.FindObjectsOfType<ObjectPlacement>(true))
+        {
+            editor.StoreObjects();
+            break;
         }
     }
 
     private static void OnAfterExitPlayMode()
     {
-
+        foreach (ObjectPlacement editor in Object.FindObjectsOfType<ObjectPlacement>(true))
+        {
+            editor.RestoreObjects();
+            break;
+        }
     }
 }
 #endif

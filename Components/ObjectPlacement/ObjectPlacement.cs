@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,14 +8,17 @@ public class ObjectPlacement : MonoBehaviour
 {
     [SerializeField] InputActionProperty leftPickupInput;
     [SerializeField] InputActionProperty rightPickupInput;
-
-    Transform leftHandController;
-    Transform rightHandController;
-
+    [SerializeField] TransferAsset objectTransferAsset;
 
     [Header("Detection")]
     [SerializeField] LayerMask placeableLayer;
     [SerializeField] float pickupRadius = 0.01f;
+
+    Transform leftHandController;
+    Transform rightHandController;
+    PlaceableObject[] moveableObjects;
+    private HandState leftHand;
+    private HandState rightHand;
 
     // Internal hand state struct
     private struct HandState
@@ -24,22 +28,15 @@ public class ObjectPlacement : MonoBehaviour
         public Quaternion offsetRot;
     }
 
-    private HandState leftHand;
-    private HandState rightHand;
-
     void Start()
     {
 
     }
 
-    public GameObject debugObject;
-
     void Update()
     {
         HandleHand(leftPickupInput, leftHandController, ref leftHand);
         HandleHand(rightPickupInput, rightHandController, ref rightHand);
-
-        debugObject = leftHand.held != null ? leftHand.held.gameObject : null;
     }
 
     public void Setup(Transform leftHandController, Transform rightHandController)
@@ -54,6 +51,22 @@ public class ObjectPlacement : MonoBehaviour
         // Enable input actions
         leftPickupInput.action.Enable();
         rightPickupInput.action.Enable();
+    }
+
+    public void GatherMoveableObjects()
+    {
+        moveableObjects = Object.FindObjectsOfType<PlaceableObject>();
+        objectTransferAsset.ClearTransferDataAndSaveAsset();
+    }
+
+    public void StoreObjects()
+    {
+        objectTransferAsset.StoreObjects(moveableObjects);
+    }
+
+    public void RestoreObjects()
+    {
+        objectTransferAsset.RestoreObjects(Object.FindObjectsOfType<PlaceableObject>());
     }
 
     void HandleHand(InputActionProperty input, Transform handTransform, ref HandState handState)
