@@ -6,6 +6,11 @@ public class PlaceableObject : MonoBehaviour
 {
     [SerializeField] bool remainVertical;
 
+    public bool RemainVertical
+    {
+        get { return remainVertical; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

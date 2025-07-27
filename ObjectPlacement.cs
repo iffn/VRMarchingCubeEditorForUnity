@@ -84,7 +84,24 @@ public class ObjectPlacement : MonoBehaviour
         if (input.action.IsPressed() && handState.held != null)
         {
             handState.held.transform.position = origin + handTransform.rotation * handState.offsetPos;
-            handState.held.transform.rotation = handTransform.rotation * handState.offsetRot;
+
+            if (handState.held.RemainVertical)
+            {
+                Vector3 flatForward = handTransform.forward;
+                flatForward.y = 0;
+                flatForward.Normalize();
+
+                if (flatForward == Vector3.zero)
+                    flatForward = Vector3.forward;
+
+                Quaternion flatRotation = Quaternion.LookRotation(flatForward, Vector3.up);
+
+                handState.held.transform.rotation = flatRotation * handState.offsetRot;
+            }
+            else
+            {
+                handState.held.transform.rotation = handTransform.rotation * handState.offsetRot;
+            }
         }
 
         if (input.action.WasReleasedThisFrame() && handState.held != null)
