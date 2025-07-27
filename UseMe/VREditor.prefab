@@ -9074,7 +9074,7 @@ GameObject:
   - component: {fileID: 7205163479603429539}
   - component: {fileID: 2022851915168387242}
   m_Layer: 0
-  m_Name: VRSimplePaint
+  m_Name: VREditor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9116,54 +9116,6 @@ MonoBehaviour:
   toolOrigin: {fileID: 0}
   leftHandController: {fileID: 0}
   rightHandController: {fileID: 0}
-  increasePlayerSizeButton:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Increase Player Size Button
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: a8c4a0c8-ca10-483a-9648-5d04e322c85a
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 6767779624438223983, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
-  decreasePlayerSizeButton:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Decrease Player Size Button
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: f7ea183d-6f3f-4f3c-93ff-4815ebb57776
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -1135033248533279976, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
-  leftHandScaleActivator:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Left Hand Scale Activator
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: c8ea1be2-549b-41a2-b409-782ca3b0d290
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 3842925744296952700, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
-  rightHandScaleActivator:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Right Hand Scale Activator
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 9265bbe4-01b6-4dd4-bc0e-081e2be1952b
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 2143750626503939954, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
   linkedVRMarchingCubeEditor: {fileID: 2290282123023517615}
   linkedPlayerController: {fileID: 3956343009861494803}
   linkedObjectPlacement: {fileID: 6560801621330758193}
@@ -13854,8 +13806,9 @@ MonoBehaviour:
     m_Reference: {fileID: 5780621241780526649, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
   placeableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   pickupRadius: 0.01
+  debugObject: {fileID: 0}
 --- !u!1 &8560728680635348060
 GameObject:
   m_ObjectHideFlags: 0
