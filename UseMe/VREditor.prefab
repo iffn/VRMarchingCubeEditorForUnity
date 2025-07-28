@@ -1766,8 +1766,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1821830005949170482}
   - component: {fileID: 7660786875222731679}
+  - component: {fileID: 4287044318518846767}
   m_Layer: 0
-  m_Name: Shape buttons
+  m_Name: Placeable prefabs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1817,6 +1818,19 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 3
+--- !u!114 &4287044318518846767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302141817847219820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 628a665ec8a09d54084562dcc3d51e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseButton: {fileID: 1022748330776859085}
 --- !u!1 &1383389059858814703
 GameObject:
   m_ObjectHideFlags: 0
@@ -3928,7 +3942,7 @@ GameObject:
   - component: {fileID: 8167544520799135160}
   - component: {fileID: 1022748330776859085}
   m_Layer: 0
-  m_Name: Delete
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8876,6 +8890,8 @@ MonoBehaviour:
   toolOrigin: {fileID: 0}
   leftHandController: {fileID: 0}
   rightHandController: {fileID: 0}
+  placeablePrefabs:
+  - {fileID: 0}
   linkedVRMarchingCubeEditor: {fileID: 2290282123023517615}
   linkedPlayerController: {fileID: 3956343009861494803}
   linkedObjectPlacement: {fileID: 6560801621330758193}
@@ -14103,8 +14119,8 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 5780621241780526649, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
   objectTransferAsset: {fileID: 11400000, guid: 1fc1e8ee9917d994f89bd4894184440f, type: 2}
-  placeablePrefabs: []
   toolButtons: {fileID: 2278443218255566829}
+  placeablePrefabButtons: {fileID: 4287044318518846767}
   placeableLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -15082,7 +15098,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Spawnable
+  m_text: Placeable prefabs
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

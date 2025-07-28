@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2682e280dd6ab1a45b6dffb73b2354f3, type: 3}
   m_Name: VR SaveData
   m_EditorClassIdentifier: 
-  placedObjectIndex: 
-  placedObjectPosition: []
-  placedObjectRotation: []
-  placedObjectScale: []
-  movedObjectPosition: []
-  movedObjectRotation: []
-  movedObjectScale: []
+  placedObjectIndexes: 
+  placedObjectPositions: []
+  placedObjectRotations: []
+  placedObjectScales: []
+  movedObjectPositions: []
+  movedObjectRotations: []
+  movedObjectScales: []

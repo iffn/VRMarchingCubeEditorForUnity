@@ -4,15 +4,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ObjectPlacement : MonoBehaviour, OptionUser
+public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
 {
     [SerializeField] InputActionProperty leftPickupInput;
     [SerializeField] InputActionProperty rightPickupInput;
     [SerializeField] TransferAsset objectTransferAsset;
 
-    [SerializeField] List<PlaceableObject> placeablePrefabs;
+    List<PlaceableObject> placeablePrefabs;
 
     [SerializeField] OptionSelector toolButtons;
+    [SerializeField] ButtonList placeablePrefabButtons;
 
     [Header("Detection")]
     [SerializeField] LayerMask placeableLayer;
@@ -33,7 +34,6 @@ public class ObjectPlacement : MonoBehaviour, OptionUser
         Duplicate,
         Delete
     }
-
 
     // Internal hand state struct
     private struct HandState
@@ -69,10 +69,11 @@ public class ObjectPlacement : MonoBehaviour, OptionUser
         }
     }
 
-    public void Setup(Transform leftHandController, Transform rightHandController)
+    public void Setup(Transform leftHandController, Transform rightHandController, List<PlaceableObject> placeablePrefabs)
     {
         this.leftHandController = leftHandController;
         this.rightHandController = rightHandController;
+        this.placeablePrefabs = placeablePrefabs;
 
         // Initialize hand states
         leftHand = new HandState { held = null };
@@ -83,6 +84,15 @@ public class ObjectPlacement : MonoBehaviour, OptionUser
         rightPickupInput.action.Enable();
 
         toolButtons.Setup(this, defaultOption: (int)currentTool);
+
+        List<string> placeablePrefabNames = new List<string>();
+
+        foreach(PlaceableObject pref in placeablePrefabs)
+        {
+            placeablePrefabNames.Add(pref.name);
+        }
+
+        placeablePrefabButtons.Setup(this, placeablePrefabNames);
     }
 
     public void GatherObjects()
@@ -117,6 +127,14 @@ public class ObjectPlacement : MonoBehaviour, OptionUser
         if(selector == toolButtons)
         {
             currentTool = (Tools)optionIndex;
+        }
+    }
+
+    public void UseButton(ButtonList list, int index)
+    {
+        if(list == placeablePrefabButtons)
+        {
+            SpawnObject(index);
         }
     }
 

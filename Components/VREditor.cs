@@ -16,6 +16,7 @@ public class VREditor : MonoBehaviour
     [SerializeField] Transform toolOrigin;
     [SerializeField] Transform leftHandController;
     [SerializeField] Transform rightHandController;
+    [SerializeField] List<PlaceableObject> placeablePrefabs;
 
     [Header("Prefab")]
     [SerializeField] VRMarchingCubeEditor linkedVRMarchingCubeEditor;
@@ -47,7 +48,8 @@ public class VREditor : MonoBehaviour
 
         linkedObjectPlacement.Setup(
             leftHandController,
-            rightHandController
+            rightHandController,
+            placeablePrefabs
         );
     }
 

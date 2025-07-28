@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2240,7 +2240,7 @@ GameObject:
   - component: {fileID: 1302560871}
   - component: {fileID: 1302560875}
   m_Layer: 0
-  m_Name: Moveable cube -> Add placeable object script
+  m_Name: Placeable Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4482,6 +4482,10 @@ PrefabInstance:
       propertyPath: linkedMarchingCubesController
       value: 
       objectReference: {fileID: 1573235874}
+    - target: {fileID: 2022851915168387242, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
+      propertyPath: placeablePrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1302560875}
     - target: {fileID: 6001950580786000009, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
       propertyPath: m_Name
       value: VREditor
@@ -4492,7 +4496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7205163479603429539, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.365
       objectReference: {fileID: 0}
     - target: {fileID: 7205163479603429539, guid: 96dc9a0c7a3e088419815808d8788b09, type: 3}
       propertyPath: m_LocalPosition.z
