@@ -13,8 +13,15 @@ public class ButtonList : MonoBehaviour
 
     public void Setup(IButtonListUser user, List<string> buttonNames)
     {
+        if (baseButton == null)
+        {
+            gameObject.name = "[Error] " + gameObject.name;
+            Debug.LogWarning("Error: Base button not assigned on " + gameObject.name);
+            return;
+        }
+
         // Cleanup
-        if(buttons.Count > 1)
+        if (buttons.Count > 1)
         {
             for(int i = 0; i < buttons.Count; i++)
             {
@@ -39,9 +46,7 @@ public class ButtonList : MonoBehaviour
         {
             for(int i = 1; i < buttonNames.Count; i++)
             {
-                Button newButton = GameObject.Instantiate(baseButton);
-
-                newButton.transform.parent = baseButton.transform.parent;
+                Button newButton = GameObject.Instantiate(baseButton, baseButton.transform.parent);
 
                 SetupButton(newButton, i, buttonNames[i]);
             }

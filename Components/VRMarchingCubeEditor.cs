@@ -13,12 +13,14 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
     [SerializeField] float scaleSpeed = 1f;
     [SerializeField] float scaleThreshold = 0.01f;
     [SerializeField] OptionSelector toolSelector;
+    [SerializeField] OptionSelector shapeSelector;
 
     [SerializeField] AnimationCurve paintCurve;
     [SerializeField] byte clearColor = 0;
     [SerializeField] byte grassColor = 200;
     [SerializeField] byte pathColor = 255;
 
+    PlaceableByClickHandler placeableByClickHandler;
 
     Transform toolOrigin;
     Tools currentTool = Tools.addAndRemove;
@@ -117,7 +119,13 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
         InitializeController();
 
-        toolSelector.Setup(this, (int)currentTool);
+        List<string> toolNames = new List<string>(System.Enum.GetNames(typeof(Tools)));
+
+        toolSelector.Setup(this, toolNames, (int)currentTool);
+
+        placeableByClickHandler = new PlaceableByClickHandler(linkedMarchingCubeController);
+
+        shapeSelector.Setup(this, new List<string>(placeableByClickHandler.EditShapeNames), 0);
     }
 
     public void SelectOption(OptionSelector selector, int optionIndex)
@@ -125,6 +133,10 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
         if(selector == toolSelector)
         {
             currentTool = (Tools)optionIndex;
+        }
+        else if (selector == shapeSelector)
+        {
+            placeableByClickHandler.SelectShape(optionIndex);
         }
     }
 

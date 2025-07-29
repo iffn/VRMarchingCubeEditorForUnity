@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class OptionSelector : MonoBehaviour
 {
-    [SerializeField] List<Button> optionButtons;
+    [SerializeField] Button baseButton;
+    List<Button> buttons = new List<Button>();
+
     OptionUser linkedOptionUser;
 
     int currentOption = -1;
@@ -22,25 +24,54 @@ public class OptionSelector : MonoBehaviour
 
     }
 
-    public void Setup(OptionUser optionUser, int defaultOption = 0)
+    public void Setup(OptionUser optionUser, List<string> buttonNames, int defaultOption = 0)
     {
-        linkedOptionUser = optionUser;
-
-        // Error checking
-        if (optionButtons.Count == 0)
+        if(baseButton == null)
         {
-            Debug.LogWarning("No option buttons set up for OptionSelector");
-            gameObject.name = "[Setup Error] " + gameObject.name;
+            Debug.LogWarning("Error: Base button not assigned");
+            gameObject.name = "[Error] " + gameObject.name;
+            Debug.LogWarning("Error: Base button not assigned on " + gameObject.name);
             return;
         }
 
-        for (int i = 0; i < optionButtons.Count; i++)
+        // Cleanup
+        if (buttons.Count > 1)
         {
-            int index = i; // capture the current value
-            optionButtons[i].onClick.AddListener(() => SelectOption(index));
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                GameObject.Destroy(buttons[i]);
+            }
+
+            buttons.Clear();
         }
 
-        SelectOption(Mathf.Clamp(defaultOption, 0, optionButtons.Count - 1));
+        linkedOptionUser = optionUser;
+
+        if (buttonNames == null || buttonNames.Count == 0)
+            return;
+
+        buttons.Add(baseButton);
+
+        SetupButton(baseButton, 0, buttonNames[0]);
+
+        if (buttonNames.Count > 1)
+        {
+            for (int i = 1; i < buttonNames.Count; i++)
+            {
+                Button newButton = GameObject.Instantiate(baseButton, baseButton.transform.parent);
+
+                SetupButton(newButton, i, buttonNames[i]);
+            }
+        }
+
+        SelectOption(defaultOption);
+    }
+
+    void SetupButton(Button button, int index, string name)
+    {
+        button.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = name;
+
+        button.onClick.AddListener(() => SelectOption(index));
     }
 
     public void SelectOption(int buttonIndex)
@@ -50,7 +81,7 @@ public class OptionSelector : MonoBehaviour
         // Handle old option
         if (currentOption >= 0)
         {
-            Button currentButton = optionButtons[currentOption];
+            Button currentButton = buttons[currentOption];
 
             block = currentButton.colors;
             block.normalColor = block.disabledColor;
@@ -61,7 +92,7 @@ public class OptionSelector : MonoBehaviour
         // Handle new option
         int newOption = buttonIndex;
 
-        Button clickedButton = optionButtons[buttonIndex];
+        Button clickedButton = buttons[buttonIndex];
 
         if (buttonIndex == currentOption)
         {

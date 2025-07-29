@@ -83,7 +83,9 @@ public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
         leftPickupInput.action.Enable();
         rightPickupInput.action.Enable();
 
-        toolButtons.Setup(this, defaultOption: (int)currentTool);
+        List<string> toolNames = new List<string>(System.Enum.GetNames(typeof(Tools)));
+
+        toolButtons.Setup(this, toolNames, (int)currentTool);
 
         List<string> placeablePrefabNames = new List<string>();
 
