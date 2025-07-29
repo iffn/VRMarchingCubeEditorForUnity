@@ -130,16 +130,22 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
     void AddAndRemoveUpdate()
     {
-        BaseModificationTools.IVoxelModifier modifier = subtractButton.action.IsPressed() ?
+        if (editAction.action.IsPressed())
+        {
+            BaseModificationTools.IVoxelModifier modifier = subtractButton.action.IsPressed() ?
             new BaseModificationTools.SubtractShapeModifier() : new BaseModificationTools.AddShapeModifier();
 
-        linkedMarchingCubeController.ModificationManager.ModifyData(placeableByClick, modifier);
+            linkedMarchingCubeController.ModificationManager.ModifyData(placeableByClick, modifier);
+        }
     }
 
     void PaintAlpha(byte color)
     {
-        BaseModificationTools.IVoxelModifier modifier = new BaseModificationTools.ChangeColorModifier(new Color32(0, 0, 0, grassColor), paintCurve, false, false, false, true);
+        if (editAction.action.IsPressed())
+        {
+            BaseModificationTools.IVoxelModifier modifier = new BaseModificationTools.ChangeColorModifier(new Color32(0, 0, 0, grassColor), paintCurve, false, false, false, true);
 
-        linkedMarchingCubeController.ModificationManager.ModifyData(placeableByClick, modifier);
+            linkedMarchingCubeController.ModificationManager.ModifyData(placeableByClick, modifier);
+        }
     }
 }
