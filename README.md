@@ -15,3 +15,18 @@ https://www.youtube.com/watch?v=DhqCLamOIQk
 
 ### Marching Cube Editor on Playmode Editor branch
 https://github.com/iffn/MarchingCubeEditorForUnity/tree/PlaymodeEditor
+
+## ToDo
+### Soon
+- [x] Implement different MarchingCube tools and shapes
+- [ ] Test and fix object spawning, moving, duplicating and removing
+- [ ] Implement peparate player and editor controllers
+- [ ] Implement start walking around from raycast position
+- [ ] Bind UI to hand if Device Simulator not active
+- [ ] Fix player scaling
+- [ ] Implement undo on exit playmode
+
+### Later
+- [ ] Implement light settings
+- [ ] Implement ability to swap hands
+- [ ] Implement ontrol indicators
