@@ -25,6 +25,7 @@ https://github.com/iffn/MarchingCubeEditorForUnity/tree/PlaymodeEditor
 - [ ] Bind UI to hand if Device Simulator not active
 - [ ] Fix player scaling
 - [ ] Implement undo on exit playmode
+- [ ] Improve runtime marching cube controller
 
 ### Later
 - [ ] Implement light settings
