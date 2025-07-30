@@ -7413,13 +7413,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   linkedMarchingCubesController: {fileID: 0}
-  placeableByClick: {fileID: 0}
   linkedCharacterController: {fileID: 0}
   toolOrigin: {fileID: 0}
   leftHandController: {fileID: 0}
   rightHandController: {fileID: 0}
-  placeablePrefabs:
-  - {fileID: 0}
+  placeablePrefabs: []
   linkedVRMarchingCubeEditor: {fileID: 2290282123023517615}
   linkedPlayerController: {fileID: 3956343009861494803}
   linkedObjectPlacement: {fileID: 6560801621330758193}
