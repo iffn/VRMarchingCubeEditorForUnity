@@ -8,9 +8,10 @@ public class OptionSelector : MonoBehaviour
     [SerializeField] Button baseButton;
     List<Button> buttons = new List<Button>();
 
+    bool allowDeselect;
+    int currentOption = -1;
     OptionUser linkedOptionUser;
 
-    int currentOption = -1;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,7 @@ public class OptionSelector : MonoBehaviour
 
     }
 
-    public void Setup(OptionUser optionUser, List<string> buttonNames, int defaultOption = 0)
+    public void Setup(OptionUser optionUser, List<string> buttonNames, bool allowDeselect, int defaultOption = 0)
     {
         if(baseButton == null)
         {
@@ -64,6 +65,11 @@ public class OptionSelector : MonoBehaviour
             }
         }
 
+        if(!allowDeselect)
+            defaultOption = System.Math.Clamp(defaultOption, 0, buttonNames.Count - 1);
+        else if(defaultOption > buttonNames.Count - 1)
+            defaultOption = buttonNames.Count - 1;
+
         SelectOption(defaultOption);
     }
 
@@ -76,6 +82,9 @@ public class OptionSelector : MonoBehaviour
 
     public void SelectOption(int buttonIndex)
     {
+        if (!allowDeselect && buttonIndex == currentOption)
+            return;
+
         ColorBlock block;
 
         // Handle old option
@@ -88,9 +97,6 @@ public class OptionSelector : MonoBehaviour
             block.selectedColor = block.disabledColor;
             currentButton.colors = block;
         }
-
-        // Handle new option
-        int newOption = buttonIndex;
 
         Button clickedButton = buttons[buttonIndex];
 

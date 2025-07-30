@@ -85,7 +85,7 @@ public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
 
         List<string> toolNames = new List<string>(System.Enum.GetNames(typeof(Tools)));
 
-        toolButtons.Setup(this, toolNames, (int)currentTool);
+        toolButtons.Setup(this, toolNames, false, (int)currentTool);
 
         List<string> placeablePrefabNames = new List<string>();
 
