@@ -22,6 +22,8 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
     PlaceableByClickHandler placeableByClickHandler;
 
+    EditShape PlaceableByClick => placeableByClickHandler.SelectedShape.AsEditShape;
+
     Transform toolOrigin;
     Tools currentTool = Tools.addAndRemove;
 
@@ -41,8 +43,8 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
         scaleToolOnY.action.Enable();
         subtractButton.action.Enable();
 
-        if(placeableByClick)
-            placeableByClick.gameObject.SetActive(true);
+        if(PlaceableByClick)
+            PlaceableByClick.gameObject.SetActive(true);
     }
 
     void OnDisable()
@@ -53,7 +55,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
         try
         {
-            placeableByClick.gameObject.SetActive(false);
+            PlaceableByClick.gameObject.SetActive(false);
         }
         catch(System.Exception e)
         {
@@ -68,7 +70,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
     void Update()
     {
-        placeableByClick.transform.position = toolOrigin.position;
+        placeableByClickHandler.SelectedShape.AsEditShape.transform.position = toolOrigin.position;
 
         switch (currentTool)
         {
@@ -96,7 +98,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
         if (Mathf.Abs(scaleValue) > scaleThreshold)
         {
-            placeableByClick.transform.localScale *= 1 + scaleValue * scaleSpeed * Time.deltaTime;
+            placeableByClickHandler.SelectedShape.AsEditShape.transform.localScale *= 1 + scaleValue * scaleSpeed * Time.deltaTime;
         }
     }
 
@@ -107,15 +109,11 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
     public void Setup(
         Transform toolOrigin,
-        MarchingCubesController linkedMarchingCubeController,
-        EditShape placeableByClick
+        MarchingCubesController linkedMarchingCubeController
         )
     {
         this.toolOrigin = toolOrigin;
         this.linkedMarchingCubeController = linkedMarchingCubeController;
-        this.placeableByClick = placeableByClick;
-
-        placeableByClick.gameObject.SetActive(enabled);
 
         InitializeController();
 
@@ -126,6 +124,8 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
         placeableByClickHandler = new PlaceableByClickHandler(linkedMarchingCubeController);
 
         shapeSelector.Setup(this, new List<string>(placeableByClickHandler.EditShapeNames), false, 0);
+
+        PlaceableByClick.gameObject.SetActive(enabled);
     }
 
     public void SelectOption(OptionSelector selector, int optionIndex)
@@ -147,7 +147,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
             BaseModificationTools.IVoxelModifier modifier = subtractButton.action.IsPressed() ?
             new BaseModificationTools.SubtractShapeModifier() : new BaseModificationTools.AddShapeModifier();
 
-            linkedMarchingCubeController.ModificationManager.ModifyData(placeableByClick, modifier);
+            linkedMarchingCubeController.ModificationManager.ModifyData(PlaceableByClick, modifier);
         }
     }
 
@@ -157,7 +157,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
         {
             BaseModificationTools.IVoxelModifier modifier = new BaseModificationTools.ChangeColorModifier(new Color32(0, 0, 0, grassColor), paintCurve, false, false, false, true);
 
-            linkedMarchingCubeController.ModificationManager.ModifyData(placeableByClick, modifier);
+            linkedMarchingCubeController.ModificationManager.ModifyData(PlaceableByClick, modifier);
         }
     }
 }

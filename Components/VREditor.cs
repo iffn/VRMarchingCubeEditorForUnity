@@ -11,7 +11,6 @@ public class VREditor : MonoBehaviour
 {
     [Header("Scene specific")]
     [SerializeField] MarchingCubesController linkedMarchingCubesController;
-    [SerializeField] EditShape placeableByClick;
     [SerializeField] CharacterController linkedCharacterController;
     [SerializeField] Transform toolOrigin;
     [SerializeField] Transform leftHandController;
@@ -36,8 +35,7 @@ public class VREditor : MonoBehaviour
     {
         linkedVRMarchingCubeEditor.Setup(
             toolOrigin,
-            linkedMarchingCubesController,
-            placeableByClick
+            linkedMarchingCubesController
         );
 
         linkedPlayerController.Setup(
