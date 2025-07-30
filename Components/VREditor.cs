@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public class VREditor : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class VREditor : MonoBehaviour
     [SerializeField] Transform toolOrigin;
     [SerializeField] Transform leftHandController;
     [SerializeField] Transform rightHandController;
+    [SerializeField] DynamicMoveProvider linkedMoveProvider;
     [SerializeField] List<PlaceableObject> placeablePrefabs;
 
     [Header("Prefab")]
@@ -41,7 +43,8 @@ public class VREditor : MonoBehaviour
         linkedPlayerController.Setup(
             linkedCharacterController,
             leftHandController,
-            rightHandController
+            rightHandController,
+            linkedMoveProvider
         );
 
         linkedObjectPlacement.Setup(

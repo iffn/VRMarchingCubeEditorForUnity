@@ -7417,6 +7417,7 @@ MonoBehaviour:
   toolOrigin: {fileID: 0}
   leftHandController: {fileID: 0}
   rightHandController: {fileID: 0}
+  linkedMoveProvider: {fileID: 0}
   placeablePrefabs: []
   linkedVRMarchingCubeEditor: {fileID: 2290282123023517615}
   linkedPlayerController: {fileID: 3956343009861494803}
@@ -12152,6 +12153,18 @@ MonoBehaviour:
     m_Reference: {fileID: 2143750626503939954, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
   scaleIndicator: {fileID: 7009012269299017894}
   scaleText: {fileID: 3596999273422467654}
+  walkIncludeLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  walkExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  scalingGhostIncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  scalingGhostExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &8762684709850030784
 GameObject:
   m_ObjectHideFlags: 0

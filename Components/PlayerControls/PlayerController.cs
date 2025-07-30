@@ -1,8 +1,8 @@
-using iffnsStuff.MarchingCubeEditor.EditTools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Transform scaleIndicator;
     [SerializeField] TMPro.TextMeshPro scaleText;
+    [SerializeField] LayerMask walkIncludeLayers;
+    [SerializeField] LayerMask walkExcludeLayers;
+    [SerializeField] LayerMask scalingGhostIncludeLayers;
+    [SerializeField] LayerMask scalingGhostExcludeLayers;
 
     CharacterController linkedCharacterController;
     Transform leftHandController;
@@ -24,10 +28,18 @@ public class PlayerController : MonoBehaviour
     bool scalingActive;
     float initialHandDistance;
     float initialScale;
+    DynamicMoveProvider linkedMoveProvider;
+    moveOptions moveOption = moveOptions.scalingGhost;
 
     float CurrentScale => linkedCharacterController.transform.localScale.x;
     Vector3 ControllerCenter => 0.5f * (leftHandController.transform.position + rightHandController.transform.position);
     float HandDistance => (leftHandController.transform.position - rightHandController.transform.position).magnitude;
+
+    public enum moveOptions
+    {
+        walk,
+        scalingGhost
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +49,60 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        switch (moveOption)
+        {
+            case moveOptions.walk:
+                break;
+            case moveOptions.scalingGhost:
+                ScalingGhostUpdate();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void Setup(
+        CharacterController linkedCharacterController,
+        Transform leftHandController,
+        Transform rightHandController,
+        DynamicMoveProvider linkedMoveProvider
+        )
+    {
+        this.linkedCharacterController = linkedCharacterController;
+        this.leftHandController = leftHandController;
+        this.rightHandController = rightHandController;
+        this.linkedMoveProvider = linkedMoveProvider;
+
+        scaleIndicator.gameObject.SetActive(false);
+
+        defaultHeight = linkedCharacterController.height;
+        defaultRadius = linkedCharacterController.radius;
+        defaultCenter = linkedCharacterController.center;
+    }
+
+    public void SetMoveOption(moveOptions newMoveOption)
+    {
+        switch (newMoveOption)
+        {
+            case moveOptions.walk:
+                linkedCharacterController.includeLayers = walkIncludeLayers;
+                linkedCharacterController.excludeLayers = walkExcludeLayers;
+                linkedMoveProvider.useGravity = true;
+                break;
+            case moveOptions.scalingGhost:
+                linkedCharacterController.includeLayers = scalingGhostIncludeLayers;
+                linkedCharacterController.excludeLayers = scalingGhostExcludeLayers;
+                linkedMoveProvider.useGravity = false;
+                break;
+            default:
+                break;
+        }
+
+        moveOption = newMoveOption;
+    }
+
+    void ScalingGhostUpdate()
     {
         if (Input.GetKey(KeyCode.KeypadPlus) || increasePlayerSizeButton.action.IsPressed())
         {
@@ -49,23 +115,6 @@ public class PlayerController : MonoBehaviour
         }
 
         HandleScale();
-    }
-
-    public void Setup(
-        CharacterController linkedCharacterController,
-        Transform leftHandController,
-        Transform rightHandController
-        )
-    {
-        this.linkedCharacterController = linkedCharacterController;
-        this.leftHandController = leftHandController;
-        this.rightHandController = rightHandController;
-
-        scaleIndicator.gameObject.SetActive(false);
-
-        defaultHeight = linkedCharacterController.height;
-        defaultRadius = linkedCharacterController.radius;
-        defaultCenter = linkedCharacterController.center;
     }
 
     void ScalePlayer(float scale)
