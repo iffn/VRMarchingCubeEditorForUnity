@@ -57,7 +57,12 @@ public class ButtonList : MonoBehaviour
     {
         button.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = name;
 
+        button.onClick.RemoveAllListeners();
+
         button.onClick.AddListener(() => ClickButton(index));
+
+        if (!buttons.Contains(button))
+            buttons.Add(button);
     }
 
     void ClickButton(int index)

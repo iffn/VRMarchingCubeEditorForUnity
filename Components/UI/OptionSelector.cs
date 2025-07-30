@@ -51,8 +51,6 @@ public class OptionSelector : MonoBehaviour
         if (buttonNames == null || buttonNames.Count == 0)
             return;
 
-        buttons.Add(baseButton);
-
         SetupButton(baseButton, 0, buttonNames[0]);
 
         if (buttonNames.Count > 1)
@@ -77,7 +75,12 @@ public class OptionSelector : MonoBehaviour
     {
         button.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = name;
 
+        button.onClick.RemoveAllListeners();
+
         button.onClick.AddListener(() => SelectOption(index));
+
+        if(!buttons.Contains(button))
+            buttons.Add(button);
     }
 
     public void SelectOption(int buttonIndex)
