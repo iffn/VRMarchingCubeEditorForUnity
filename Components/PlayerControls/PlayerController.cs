@@ -4,15 +4,23 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, OptionUser
 {
     [SerializeField] InputActionProperty increasePlayerSizeButton;
     [SerializeField] InputActionProperty decreasePlayerSizeButton;
     [SerializeField] InputActionProperty leftHandScaleActivator;
     [SerializeField] InputActionProperty rightHandScaleActivator;
+    [SerializeField] InputActionProperty leftTeleportButton;
+    [SerializeField] InputActionProperty rightTeleportButton;
+
+    [SerializeField] MoveOptions defaultMovementOption = MoveOptions.scalingGhost;
+
+    [SerializeField] Transform leftLineRenderer;
+    [SerializeField] Transform rightLineRenderer;
 
     [SerializeField] Transform scaleIndicator;
     [SerializeField] TMPro.TextMeshPro scaleText;
+    [SerializeField] OptionSelector movementStateSelector;
     [SerializeField] LayerMask walkIncludeLayers;
     [SerializeField] LayerMask walkExcludeLayers;
     [SerializeField] LayerMask scalingGhostIncludeLayers;
@@ -29,13 +37,15 @@ public class PlayerController : MonoBehaviour
     float initialHandDistance;
     float initialScale;
     DynamicMoveProvider linkedMoveProvider;
-    moveOptions moveOption = moveOptions.scalingGhost;
+    MoveOptions moveOption = MoveOptions.scalingGhost;
 
     float CurrentScale => linkedCharacterController.transform.localScale.x;
     Vector3 ControllerCenter => 0.5f * (leftHandController.transform.position + rightHandController.transform.position);
     float HandDistance => (leftHandController.transform.position - rightHandController.transform.position).magnitude;
 
-    public enum moveOptions
+    bool selectStartingPoint = false;
+
+    public enum MoveOptions
     {
         walk,
         scalingGhost
@@ -52,9 +62,10 @@ public class PlayerController : MonoBehaviour
     {
         switch (moveOption)
         {
-            case moveOptions.walk:
+            case MoveOptions.walk:
+                WalkingUpdate();
                 break;
-            case moveOptions.scalingGhost:
+            case MoveOptions.scalingGhost:
                 ScalingGhostUpdate();
                 break;
             default:
@@ -79,18 +90,32 @@ public class PlayerController : MonoBehaviour
         defaultHeight = linkedCharacterController.height;
         defaultRadius = linkedCharacterController.radius;
         defaultCenter = linkedCharacterController.center;
+
+        increasePlayerSizeButton.action.Enable();
+        decreasePlayerSizeButton.action.Enable();
+        leftHandScaleActivator.action.Enable();
+        rightHandScaleActivator.action.Enable();
+        leftTeleportButton.action.Enable();
+        rightTeleportButton.action.Enable();
+
+        List<string> movementStateNames = new List<string>(System.Enum.GetNames(typeof(MoveOptions)));
+
+        movementStateSelector.Setup(this, movementStateNames, false, (int)defaultMovementOption);
+
+        leftLineRenderer.gameObject.SetActive(false);
+        rightLineRenderer.gameObject.SetActive(false);
     }
 
-    public void SetMoveOption(moveOptions newMoveOption)
+    public void SetMoveOption(MoveOptions newMoveOption)
     {
         switch (newMoveOption)
         {
-            case moveOptions.walk:
+            case MoveOptions.walk:
                 linkedCharacterController.includeLayers = walkIncludeLayers;
                 linkedCharacterController.excludeLayers = walkExcludeLayers;
                 linkedMoveProvider.useGravity = true;
                 break;
-            case moveOptions.scalingGhost:
+            case MoveOptions.scalingGhost:
                 linkedCharacterController.includeLayers = scalingGhostIncludeLayers;
                 linkedCharacterController.excludeLayers = scalingGhostExcludeLayers;
                 linkedMoveProvider.useGravity = false;
@@ -100,6 +125,47 @@ public class PlayerController : MonoBehaviour
         }
 
         moveOption = newMoveOption;
+    }
+
+    void WalkingUpdate()
+    {
+        if (selectStartingPoint)
+        {
+            ScalingGhostUpdate();
+
+            bool hit;
+            Vector3 impactPoint;
+
+            HandleTeleportHandAndGetPosition(leftHandController, leftLineRenderer, leftTeleportButton);
+            HandleTeleportHandAndGetPosition(rightHandController, rightLineRenderer, rightTeleportButton);
+        }
+        else
+        {
+            // No special movement 
+        }
+    }
+
+    void HandleTeleportHandAndGetPosition(Transform controller, Transform lineRenderer, InputActionProperty teleportAction)
+    {
+        lineRenderer.SetPositionAndRotation(controller.position, controller.rotation);
+
+        Ray ray = new Ray(controller.position, controller.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+        {
+            lineRenderer.localScale = new Vector3(lineRenderer.localScale.x, lineRenderer.localScale.y, hit.distance);
+
+            if (leftTeleportButton.action.IsPressed())
+            {
+                // Teleport
+                linkedCharacterController.transform.position = hit.point;
+                selectStartingPoint = false;
+                ScalePlayer(1);
+
+                leftLineRenderer.gameObject.SetActive(false);
+                rightLineRenderer.gameObject.SetActive(false);
+            }
+        }
     }
 
     void ScalingGhostUpdate()
@@ -170,6 +236,21 @@ public class PlayerController : MonoBehaviour
                 scalingActive = false;
                 scaleIndicator.gameObject.SetActive(false);
             }
+        }
+    }
+
+    public void SelectOption(OptionSelector selector, int optionIndex)
+    {
+        if(selector == movementStateSelector)
+        {
+            if(optionIndex == (int)MoveOptions.walk)
+            {
+                selectStartingPoint = true;
+                leftLineRenderer.gameObject.SetActive(true);
+                rightLineRenderer.gameObject.SetActive(true);
+            }
+
+            moveOption = (MoveOptions)optionIndex;
         }
     }
 }
