@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviour, OptionUser
         {
             lineRenderer.localScale = new Vector3(lineRenderer.localScale.x, lineRenderer.localScale.y, hit.distance);
 
-            if (leftTeleportButton.action.IsPressed())
+            if (teleportAction.action.WasPerformedThisFrame())
             {
                 // Teleport
                 linkedCharacterController.transform.position = hit.point;
