@@ -101,17 +101,6 @@
                 },
                 {
                     "name": "",
-                    "id": "f5e2395c-e732-4b0d-a64e-7f7b480fee20",
-                    "path": "<XRController>{LeftHand}/{TriggerButton}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LeftHandPrimaryButton",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "25e40796-9a2d-49b1-8a91-4d8dad2a0195",
                     "path": "<XRController>{LeftHand}/{SecondaryButton}",
                     "interactions": "",
@@ -184,6 +173,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "RightHandTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5e2395c-e732-4b0d-a64e-7f7b480fee20",
+                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftHandPrimaryButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
