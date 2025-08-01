@@ -102,6 +102,8 @@ public class PlayerController : MonoBehaviour, OptionUser
 
         movementStateSelector.Setup(this, movementStateNames, false, (int)defaultMovementOption);
 
+        SetMoveOption(defaultMovementOption);
+
         leftLineRenderer.gameObject.SetActive(false);
         rightLineRenderer.gameObject.SetActive(false);
     }
