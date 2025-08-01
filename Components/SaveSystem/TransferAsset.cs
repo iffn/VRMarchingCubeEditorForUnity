@@ -15,49 +15,82 @@ public class TransferAsset : ScriptableObject
     public List<Quaternion> movedObjectRotations;
     public List<Vector3> movedObjectScales;
 
-    public void StoreObjects(PlaceableObject[] moveableObjects, List<int> placedObjectIndexes, List<PlaceableObject> placedObjects)
+    public List<int> removedObjectIndexes;
+
+    //public void StoreObjects(PlaceableObject[] moveableObjects, List<int> placedObjectIndexes, List<PlaceableObject> placedObjects)
+    public void StoreObjects(
+        List<PlaceableObject> placeableObjectsByIndex,
+        List<PlaceableObject> initialMoveableObjects,
+        List<PlaceableObject> addedObjects,
+        List<PlaceableObject> removedExistingObjects
+        )
     {
         // Moved objects
-        for(int i = 0; i < moveableObjects.Length; i++)
+        for(int i = 0; i < initialMoveableObjects.Count; i++)
         {
-            movedObjectPositions.Add(moveableObjects[i].transform.position);
-            movedObjectRotations.Add(moveableObjects[i].transform.rotation);
-            movedObjectScales.Add(moveableObjects[i].transform.localScale);
+            movedObjectPositions.Add(initialMoveableObjects[i].transform.position);
+            movedObjectRotations.Add(initialMoveableObjects[i].transform.rotation);
+            movedObjectScales.Add(initialMoveableObjects[i].transform.localScale);
         }
 
         // Placed objects
-        this.placedObjectIndexes = placedObjectIndexes;
-
-        for(int i = 0; i < placedObjects.Count; i++)
+        for(int i = 0; i < addedObjects.Count; i++)
         {
-            placedObjectPositions.Add(placedObjects[i].transform.position);
-            placedObjectRotations.Add(placedObjects[i].transform.rotation);
-            placedObjectScales.Add(placedObjects[i].transform.localScale);
+            placedObjectIndexes.Add(addedObjects[i].placingIndex);
+            placedObjectPositions.Add(addedObjects[i].transform.position);
+            placedObjectRotations.Add(addedObjects[i].transform.rotation);
+            placedObjectScales.Add(addedObjects[i].transform.localScale);
+        }
+
+        for(int i = 0; i<removedExistingObjects.Count; i++)
+        {
+            removedObjectIndexes.Add(removedExistingObjects[i].placingIndex);
         }
 
         SaveAssetInEditor();
     }
 
-    public void RestoreObjects(PlaceableObject[] moveableObjects, List<PlaceableObject> placeablePrefabs)
+    public void RestoreObjects(
+        List<PlaceableObject> placeablePrefabs,
+        List<PlaceableObject> placeableObjectsByIndex,
+        List<PlaceableObject> initialMoveableObjects,
+        List<PlaceableObject> addedObjects,
+        List<PlaceableObject> removedExistingObjects
+        )
     {
-        for(int i = 0; i < moveableObjects.Length; i++)
+        // Moved objects
+        for(int i = 0; i < initialMoveableObjects.Count; i++)
         {
-            if (i < movedObjectPositions.Count)
-            {
-                moveableObjects[i].transform.position = movedObjectPositions[i];
-                moveableObjects[i].transform.rotation = movedObjectRotations[i];
-                moveableObjects[i].transform.localScale = movedObjectScales[i];
-            }
+            initialMoveableObjects[i].transform.position = movedObjectPositions[i];
+            initialMoveableObjects[i].transform.rotation = movedObjectRotations[i];
+            initialMoveableObjects[i].transform.localScale = movedObjectScales[i];
         }
 
+        // Placed objects
         for(int i = 0; i < placedObjectIndexes.Count; i++)
         {
-            if (placedObjectIndexes[i] < placeablePrefabs.Count)
+            PlaceableObject placedObject = Instantiate(placeablePrefabs[placedObjectIndexes[i]]);
+            placedObject.transform.position = placedObjectPositions[i];
+            placedObject.transform.rotation = placedObjectRotations[i];
+            placedObject.transform.localScale = placedObjectScales[i];
+        }
+
+        // Removed objects
+        for (int i = 0; i < removedObjectIndexes.Count; i++)
+        {
+            if (removedObjectIndexes[i] < placeablePrefabs.Count)
             {
-                PlaceableObject placedObject = Instantiate(placeablePrefabs[placedObjectIndexes[i]]);
-                placedObject.transform.position = placedObjectPositions[i];
-                placedObject.transform.rotation = placedObjectRotations[i];
-                placedObject.transform.localScale = placedObjectScales[i];
+                // Marked as prefab
+                GameObject objectToMark = placeablePrefabs[i].gameObject;
+                objectToMark.SetActive(false);
+                objectToMark.name = "[Deleted but marked as prefab] " + objectToMark.name;
+            }
+            else
+            {
+                // Other object
+                GameObject objectToRemove = initialMoveableObjects[placeablePrefabs.Count + removedObjectIndexes[i]].gameObject;
+                objectToRemove.SetActive(false);
+                objectToRemove.name = "[Should be removed] " + objectToRemove.name;
             }
         }
 

@@ -21,11 +21,18 @@ public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
 
     Transform leftHandController;
     Transform rightHandController;
-    PlaceableObject[] moveableObjects;
     private HandState leftHand;
     private HandState rightHand;
-    List<int> placedObjectIndexes = new List<int>();
-    List<PlaceableObject> placedObjects = new List<PlaceableObject>();
+
+    List<PlaceableObject> placeableObjectsByIndex;
+    List<PlaceableObject> initialMoveableObjects;
+    List<PlaceableObject> addedObjects;
+    List<PlaceableObject> removedExistingObjects;
+
+    //PlaceableObject[] moveableObjects;
+    //List<int> placedObjectIndexes = new List<int>();
+    //List<PlaceableObject> placedObjects = new List<PlaceableObject>();
+
     Tools currentTool = Tools.Move;
 
     enum Tools
@@ -99,29 +106,51 @@ public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
 
     public void GatherObjects()
     {
-        moveableObjects = Object.FindObjectsOfType<PlaceableObject>();
-        objectTransferAsset.ClearTransferDataAndSaveAsset();
+        placeableObjectsByIndex = new List<PlaceableObject>();
+        addedObjects = new List<PlaceableObject>();
+        removedExistingObjects = new List<PlaceableObject>();
 
-        foreach(PlaceableObject obj in moveableObjects)
-        {
-            if(!placedObjects.Contains(obj)) // Note: Could also be done by checking which placeablePrefabs exist in the scene
-                placeablePrefabs.Add(obj);
-        }
-
+        // Placeable prefabs
         for (int i = 0; i < placeablePrefabs.Count; i++)
         {
             placeablePrefabs[i].placingIndex = i;
+            placeableObjectsByIndex.Add(placeablePrefabs[i]);
+        }
+
+        // Placeable objects in scene
+        PlaceableObject[] allObjectsInScene = Object.FindObjectsOfType<PlaceableObject>();
+
+        initialMoveableObjects = new List<PlaceableObject>(allObjectsInScene);
+
+        for (int i = 0; i < allObjectsInScene.Length; i++)
+        {
+            if(placeablePrefabs.Contains(allObjectsInScene[i]))
+                continue;
+
+            allObjectsInScene[i].placingIndex = placeablePrefabs.Count + i;
+            placeableObjectsByIndex.Add(allObjectsInScene[i]);
         }
     }
 
     public void StoreObjects()
     {
-        objectTransferAsset.StoreObjects(moveableObjects, placedObjectIndexes, placedObjects);
+        objectTransferAsset.StoreObjects(
+            placeableObjectsByIndex,
+            initialMoveableObjects,
+            addedObjects,
+            removedExistingObjects);
     }
 
     public void RestoreObjects()
     {
-        objectTransferAsset.RestoreObjects(Object.FindObjectsOfType<PlaceableObject>(), placedObjects);
+        GatherObjects();
+
+        objectTransferAsset.RestoreObjects(
+            placeablePrefabs,
+            placeableObjectsByIndex,
+            initialMoveableObjects,
+            addedObjects,
+            removedExistingObjects);
     }
 
     public void SelectOption(OptionSelector selector, int optionIndex)
@@ -140,10 +169,11 @@ public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
         }
     }
 
-    void DuplicateObject(PlaceableObject objectToCopy)
+    void DuplicateObject(PlaceableObject baseObject)
     {
-        PlaceableObject placedObject = Instantiate(objectToCopy);
-        placedObjectIndexes.Add(objectToCopy.placingIndex);
+        PlaceableObject placedObject = Instantiate(baseObject);
+        placedObject.placingIndex = baseObject.placingIndex;
+        addedObjects.Add(placedObject);
         placedObject.transform.localPosition += 0.5f * placedObject.transform.localScale;
     }
 
@@ -152,34 +182,34 @@ public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
         PlaceableObject baseObject = placeablePrefabs[objectID];
 
         PlaceableObject placedObject = Instantiate(baseObject);
+
+        placedObject.placingIndex = baseObject.placingIndex;
         placedObject.gameObject.SetActive(true);
-        placedObjectIndexes.Add(objectID);
-        placedObjects.Add(placedObject);
+        addedObjects.Add(placedObject);
 
         placedObject.transform.position = rightHandController.position;
-        placedObject.placingIndex = baseObject.placingIndex;
     }
 
     void DeleteObject(PlaceableObject objectToDelete)
     {
         if (objectToDelete == null)
             return;
-        // Remove from placed objects list
-        if (placedObjects.Contains(objectToDelete))
+
+        if(placeablePrefabs.Contains(objectToDelete))
         {
-            placedObjects.Remove(objectToDelete);
+            objectToDelete.gameObject.SetActive(false);
+        }
+        else if (initialMoveableObjects.Contains(objectToDelete))
+        {
+            objectToDelete.gameObject.SetActive(false);
+            removedExistingObjects.Add(objectToDelete);
         }
 
-        // Remove from indexes
-        if (objectToDelete.placingIndex >= 0 && objectToDelete.placingIndex < placedObjectIndexes.Count)
+        if (addedObjects.Contains(objectToDelete))
         {
-            placedObjectIndexes.Remove(objectToDelete.placingIndex);
+            addedObjects.Remove(objectToDelete);
+            GameObject.Destroy(objectToDelete.gameObject);
         }
-
-        // ToDo: Fix index
-
-        // Destroy the object
-        Destroy(objectToDelete.gameObject);
     }
 
     void HandleHandWhenMoving(InputActionProperty input, Transform handTransform, ref HandState handState)
