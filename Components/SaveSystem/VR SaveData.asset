@@ -16,28 +16,7 @@ MonoBehaviour:
   placedObjectPositions: []
   placedObjectRotations: []
   placedObjectScales: []
-  movedObjectPositions:
-  - {x: -2.854, y: 1.4529979, z: -0.379}
-  - {x: -2.854, y: 1.4529979, z: -0.379}
-  - {x: -2.854, y: 1.4529979, z: -0.379}
-  - {x: -2.854, y: 1.4529979, z: -0.379}
-  - {x: -2.854, y: 1.4529979, z: -0.379}
-  - {x: -2.854, y: 1.4529979, z: -0.379}
-  - {x: -2.854, y: 1.4529979, z: -0.379}
-  movedObjectRotations:
-  - {x: 0, y: -0.24825867, z: 0, w: 0.96869385}
-  - {x: 0, y: -0.24825867, z: 0, w: 0.96869385}
-  - {x: 0, y: -0.24825867, z: 0, w: 0.96869385}
-  - {x: 0, y: -0.24825867, z: 0, w: 0.96869385}
-  - {x: 0, y: -0.24825867, z: 0, w: 0.96869385}
-  - {x: 0, y: -0.24825867, z: 0, w: 0.96869385}
-  - {x: 0, y: -0.24825867, z: 0, w: 0.96869385}
-  movedObjectScales:
-  - {x: 0.3, y: 0.3, z: 0.3}
-  - {x: 0.3, y: 0.3, z: 0.3}
-  - {x: 0.3, y: 0.3, z: 0.3}
-  - {x: 0.3, y: 0.3, z: 0.3}
-  - {x: 0.3, y: 0.3, z: 0.3}
-  - {x: 0.3, y: 0.3, z: 0.3}
-  - {x: 0.3, y: 0.3, z: 0.3}
+  movedObjectPositions: []
+  movedObjectRotations: []
+  movedObjectScales: []
   removedObjectIndexes: 
