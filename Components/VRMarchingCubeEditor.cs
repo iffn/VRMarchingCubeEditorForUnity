@@ -87,7 +87,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
     void Update()
     {
-        placeableByClickHandler.SelectedShape.AsEditShape.transform.position = toolOrigin.position;
+        placeableByClickHandler.SelectedShape.AsEditShape.transform.SetPositionAndRotation(toolOrigin.position, toolOrigin.rotation);
 
         switch (currentTool)
         {
