@@ -12103,6 +12103,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 5780621241780526649, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
   objectTransferAsset: {fileID: 11400000, guid: 1fc1e8ee9917d994f89bd4894184440f, type: 2}
+  linkedEditor: {fileID: 2022851915168387242}
   toolButtons: {fileID: 2278443218255566829}
   placeablePrefabButtons: {fileID: 4287044318518846767}
   placeableLayer:

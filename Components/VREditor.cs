@@ -24,6 +24,8 @@ public class VREditor : MonoBehaviour
     [SerializeField] PlayerController linkedPlayerController;
     [SerializeField] ObjectPlacement linkedObjectPlacement;
 
+    public List<PlaceableObject> PlaceablePrefabs => placeablePrefabs;
+
     void OnEnable()
     {
         

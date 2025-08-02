@@ -9,6 +9,7 @@ public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
     [SerializeField] InputActionProperty leftPickupInput;
     [SerializeField] InputActionProperty rightPickupInput;
     [SerializeField] TransferAsset objectTransferAsset;
+    [SerializeField] VREditor linkedEditor; // Back link needed for accessing the serialized objects after exiting play mode
 
     List<PlaceableObject> placeablePrefabs;
 
@@ -109,6 +110,9 @@ public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
         placeableObjectsByIndex = new List<PlaceableObject>();
         addedObjects = new List<PlaceableObject>();
         removedExistingObjects = new List<PlaceableObject>();
+
+        if(placeablePrefabs == null)
+            placeablePrefabs = linkedEditor.PlaceablePrefabs;
 
         // Placeable prefabs
         for (int i = 0; i < placeablePrefabs.Count; i++)
