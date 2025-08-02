@@ -13,14 +13,14 @@ public class VREditor : MonoBehaviour
 {
     [Header("Scene specific")]
     [SerializeField] MarchingCubesController linkedMarchingCubesController;
+    [SerializeField] List<PlaceableObject> placeablePrefabs;
+
+    [Header("Prefab")]
+    [SerializeField] DynamicMoveProvider linkedMoveProvider;
     [SerializeField] CharacterController linkedCharacterController;
     [SerializeField] Transform toolOrigin;
     [SerializeField] Transform leftHandController;
     [SerializeField] Transform rightHandController;
-    [SerializeField] DynamicMoveProvider linkedMoveProvider;
-    [SerializeField] List<PlaceableObject> placeablePrefabs;
-
-    [Header("Prefab")]
     [SerializeField] VRMarchingCubeEditor linkedVRMarchingCubeEditor;
     [SerializeField] PlayerController linkedPlayerController;
     [SerializeField] ObjectPlacement linkedObjectPlacement;
