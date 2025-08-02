@@ -132,9 +132,6 @@ public class PlayerController : MonoBehaviour, OptionUser
         {
             ScalingGhostUpdate();
 
-            bool hit;
-            Vector3 impactPoint;
-
             HandleTeleportHandAndGetPosition(leftHandController, leftLineRenderer, leftTeleportButton);
             HandleTeleportHandAndGetPosition(rightHandController, rightLineRenderer, rightTeleportButton);
         }

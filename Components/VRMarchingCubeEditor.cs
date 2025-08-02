@@ -57,7 +57,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
         {
             PlaceableByClick.gameObject.SetActive(false);
         }
-        catch(System.Exception e)
+        catch (System.Exception)
         {
             // Ignore, gets thrown when the object is destroyed when exiting play mode
         }
