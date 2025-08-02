@@ -27,6 +27,23 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
     Transform toolOrigin;
     Tools currentTool = Tools.addAndRemove;
 
+    public List<Transform> IncrementalScalingObjects
+    {
+        get
+        {
+            List<Transform> returnLIst = new ();
+
+            List<IPlaceableByClick> editShapes = placeableByClickHandler.EditShapes;
+
+            foreach (IPlaceableByClick shape in editShapes)
+            {
+                returnLIst.Add(shape.AsEditShape.transform);
+            }
+
+            return returnLIst;
+        }
+    }
+
     enum Tools
     {
         addAndRemove,

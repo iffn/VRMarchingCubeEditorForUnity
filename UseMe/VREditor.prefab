@@ -7494,6 +7494,11 @@ MonoBehaviour:
   linkedPlayerController: {fileID: 3956343009861494803}
   linkedObjectPlacement: {fileID: 6560801621330758193}
   handMenu: {fileID: 433147842259645062}
+  directScalingObjects:
+  - {fileID: 433147842259645062}
+  - {fileID: 5652773072378544547}
+  - {fileID: 4006359431025835350}
+  incrementalScalingObjects: []
 --- !u!1 &6122087899116837830
 GameObject:
   m_ObjectHideFlags: 0

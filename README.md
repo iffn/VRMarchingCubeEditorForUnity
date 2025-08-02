@@ -24,7 +24,7 @@ https://github.com/iffn/MarchingCubeEditorForUnity/tree/PlaymodeEditor
 - [ ] Test - Implement start walking around from raycast position
 - [ ] Test - Bind UI to hand if Device Simulator not active
 - [ ] Test - Fix player scaling
-- [ ] Scale rest of components when scaling
+- [ ] Test - Scale rest of components when scaling
 - [ ] Disable tools when entering walking mode
 - [ ] Implement undo on exit playmode
 - [ ] Improve runtime marching cube controller

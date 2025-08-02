@@ -32,7 +32,13 @@ public class PlayerController : MonoBehaviour, OptionUser
     float defaultHeight;
     Vector3 defaultCenter;
     float defaultRadius;
-    
+    Vector3 initialScaleCenterWorld;
+    bool scalingActive;
+    float initialHandDistancePlayerScale;
+    float initialScale;
+    List<Transform> directScalingObjects;
+    List<Transform> incrementalScalingObjects;
+
     DynamicMoveProvider linkedMoveProvider;
     MoveOptions moveOption = MoveOptions.scalingGhost;
 
@@ -74,13 +80,17 @@ public class PlayerController : MonoBehaviour, OptionUser
         CharacterController linkedCharacterController,
         Transform leftHandController,
         Transform rightHandController,
-        DynamicMoveProvider linkedMoveProvider
+        DynamicMoveProvider linkedMoveProvider,
+        List<Transform> directScalingObjects,
+        List<Transform> incrementalScalingObjects
         )
     {
         this.linkedCharacterController = linkedCharacterController;
         this.leftHandController = leftHandController;
         this.rightHandController = rightHandController;
         this.linkedMoveProvider = linkedMoveProvider;
+        this.directScalingObjects = directScalingObjects;
+        this.incrementalScalingObjects = incrementalScalingObjects;
 
         scaleIndicator.gameObject.SetActive(false);
 
@@ -156,7 +166,7 @@ public class PlayerController : MonoBehaviour, OptionUser
                 // Teleport
                 linkedCharacterController.transform.position = hit.point;
                 selectStartingPoint = false;
-                ScalePlayer(1);
+                ScalePlayerAndScalingObjects(1);
 
                 leftLineRenderer.gameObject.SetActive(false);
                 rightLineRenderer.gameObject.SetActive(false);
@@ -168,34 +178,40 @@ public class PlayerController : MonoBehaviour, OptionUser
     {
         if (Input.GetKey(KeyCode.KeypadPlus) || increasePlayerSizeButton.action.IsPressed())
         {
-            ScalePlayer(CurrentPlayerScale * (1 + 0.25f * Time.deltaTime));
+            ScalePlayerAndScalingObjects(CurrentPlayerScale * (1 + 0.25f * Time.deltaTime));
         }
 
         if (Input.GetKey(KeyCode.KeypadMinus) || decreasePlayerSizeButton.action.IsPressed())
         {
-            ScalePlayer(CurrentPlayerScale * (1 - 0.2f * Time.deltaTime));
+            ScalePlayerAndScalingObjects(CurrentPlayerScale * (1 - 0.2f * Time.deltaTime));
         }
 
         HandleScale();
     }
 
-    void ScalePlayer(float scale)
+    void ScalePlayerAndScalingObjects(float scale)
     {
         float scaleFactor = scale / CurrentPlayerScale; //Needs to be done before changing it
 
-        linkedCharacterController.transform.localScale = scale * Vector3.one;
+        Vector3 directScaleVector = scale * Vector3.one;
+
+        linkedCharacterController.transform.localScale = directScaleVector;
 
         linkedCharacterController.height = scale * defaultHeight;
         linkedCharacterController.radius = scale * defaultRadius;
         linkedCharacterController.center = scale * defaultCenter;
 
-        //placeableByClick.transform.localScale *= scaleFactor;
+        foreach(Transform directScaler in directScalingObjects)
+        {
+            directScaler.localScale = directScaleVector;
+        }
+
+        foreach(Transform incrementalScaler in incrementalScalingObjects)
+        {
+            incrementalScaler.localScale *= scaleFactor;
+        }
     }
 
-    Vector3 initialScaleCenterWorld;
-    bool scalingActive;
-    float initialHandDistancePlayerScale;
-    float initialScale;
 
     void HandleScale()
     {
@@ -214,7 +230,7 @@ public class PlayerController : MonoBehaviour, OptionUser
 
             float newScale = newHandDistancePlayerScale / initialHandDistancePlayerScale * initialScale;
 
-            ScalePlayer(newScale);
+            ScalePlayerAndScalingObjects(newScale);
 
             Vector3 newHandCenterWorld = ControllerCenterWorld;
 

@@ -25,6 +25,8 @@ public class VREditor : MonoBehaviour
     [SerializeField] PlayerController linkedPlayerController;
     [SerializeField] ObjectPlacement linkedObjectPlacement;
     [SerializeField] Transform handMenu;
+    [SerializeField] List<Transform> directScalingObjects;
+    [SerializeField] List<Transform> incrementalScalingObjects;
 
     public List<PlaceableObject> PlaceablePrefabs => placeablePrefabs;
 
@@ -46,11 +48,17 @@ public class VREditor : MonoBehaviour
             linkedMarchingCubesController
         );
 
+        List<Transform> completeIncrementalScalingObjects = new(incrementalScalingObjects);
+
+        completeIncrementalScalingObjects.AddRange(linkedVRMarchingCubeEditor.IncrementalScalingObjects);
+
         linkedPlayerController.Setup(
             linkedCharacterController,
             leftHandController,
             rightHandController,
-            linkedMoveProvider
+            linkedMoveProvider,
+            directScalingObjects,
+            completeIncrementalScalingObjects
         );
 
         linkedObjectPlacement.Setup(
@@ -66,12 +74,10 @@ public class VREditor : MonoBehaviour
     {
         if (inVR)
             UpdateHandMenuPosition();
-        
     }
 
     void UpdateHandMenuPosition()
     {
-        handMenu.position = rightHandController.position;
-        handMenu.rotation = rightHandController.rotation;
+        handMenu.SetPositionAndRotation(rightHandController.position, rightHandController.rotation);
     }
 }
