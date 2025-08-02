@@ -32,16 +32,13 @@ public class PlayerController : MonoBehaviour, OptionUser
     float defaultHeight;
     Vector3 defaultCenter;
     float defaultRadius;
-    Vector3 initialCenter;
-    bool scalingActive;
-    float initialHandDistance;
-    float initialScale;
+    
     DynamicMoveProvider linkedMoveProvider;
     MoveOptions moveOption = MoveOptions.scalingGhost;
 
-    float CurrentScale => linkedCharacterController.transform.localScale.x;
-    Vector3 ControllerCenter => 0.5f * (leftHandController.transform.position + rightHandController.transform.position);
-    float HandDistance => (leftHandController.transform.position - rightHandController.transform.position).magnitude;
+    float CurrentPlayerScale => linkedCharacterController.transform.localScale.x;
+    Vector3 ControllerCenterWorld => 0.5f * (leftHandController.transform.position + rightHandController.transform.position);
+    float HandDistanceWorld => (leftHandController.transform.position - rightHandController.transform.position).magnitude;
 
     bool selectStartingPoint = false;
 
@@ -174,12 +171,12 @@ public class PlayerController : MonoBehaviour, OptionUser
     {
         if (Input.GetKey(KeyCode.KeypadPlus) || increasePlayerSizeButton.action.IsPressed())
         {
-            ScalePlayer(CurrentScale * (1 + 0.25f * Time.deltaTime));
+            ScalePlayer(CurrentPlayerScale * (1 + 0.25f * Time.deltaTime));
         }
 
         if (Input.GetKey(KeyCode.KeypadMinus) || decreasePlayerSizeButton.action.IsPressed())
         {
-            ScalePlayer(CurrentScale * (1 - 0.2f * Time.deltaTime));
+            ScalePlayer(CurrentPlayerScale * (1 - 0.2f * Time.deltaTime));
         }
 
         HandleScale();
@@ -187,7 +184,7 @@ public class PlayerController : MonoBehaviour, OptionUser
 
     void ScalePlayer(float scale)
     {
-        float scaleFactor = scale / CurrentScale; //Needs to be done before changing it
+        float scaleFactor = scale / CurrentPlayerScale; //Needs to be done before changing it
 
         linkedCharacterController.transform.localScale = scale * Vector3.one;
 
@@ -198,37 +195,39 @@ public class PlayerController : MonoBehaviour, OptionUser
         //placeableByClick.transform.localScale *= scaleFactor;
     }
 
+    Vector3 initialScaleCenterWorld;
+    bool scalingActive;
+    float initialHandDistancePlayerScale;
+    float initialScale;
+
     void HandleScale()
     {
         if (leftHandScaleActivator.action.IsPressed() && rightHandScaleActivator.action.IsPressed())
         {
             if (!scalingActive)
             {
-                initialCenter = ControllerCenter;
+                initialScaleCenterWorld = ControllerCenterWorld;
                 scalingActive = true;
-                initialHandDistance = HandDistance;
-                initialScale = CurrentScale;
+                initialHandDistancePlayerScale = HandDistanceWorld / CurrentPlayerScale;
+                initialScale = CurrentPlayerScale;
                 scaleIndicator.gameObject.SetActive(true);
             }
 
-            float newHandDistance = HandDistance;
+            float newHandDistancePlayerScale = HandDistanceWorld / CurrentPlayerScale;
 
-            float scaleFactor = (initialHandDistance * CurrentScale) / newHandDistance;
-
-            float newScale = scaleFactor * initialScale;
+            float newScale = newHandDistancePlayerScale / initialHandDistancePlayerScale * initialScale;
 
             ScalePlayer(newScale);
 
-            Vector3 newHandCenter = ControllerCenter;
+            Vector3 newHandCenterWorld = ControllerCenterWorld;
 
-            Vector3 offset = initialCenter - newHandCenter;
+            Vector3 offsetWorld = initialScaleCenterWorld - newHandCenterWorld;
 
-            // ToDo: Move player and collider
-            linkedCharacterController.transform.position += offset;
+            linkedCharacterController.transform.position += offsetWorld;
 
-            scaleIndicator.position = newHandCenter;
+            scaleIndicator.position = newHandCenterWorld;
             scaleIndicator.LookAt(rightHandController.position, Vector3.up);
-            scaleIndicator.localScale = newHandDistance * 0.6f * Vector3.one;
+            scaleIndicator.localScale = HandDistanceWorld * 0.6f * Vector3.one;
             scaleText.text = newScale.ToString("G4");
         }
         else
