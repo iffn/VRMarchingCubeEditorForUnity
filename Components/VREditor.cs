@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public class VREditor : MonoBehaviour
@@ -23,8 +24,11 @@ public class VREditor : MonoBehaviour
     [SerializeField] VRMarchingCubeEditor linkedVRMarchingCubeEditor;
     [SerializeField] PlayerController linkedPlayerController;
     [SerializeField] ObjectPlacement linkedObjectPlacement;
+    [SerializeField] Transform handMenu;
 
     public List<PlaceableObject> PlaceablePrefabs => placeablePrefabs;
+
+    bool inVR = false;
 
     void OnEnable()
     {
@@ -54,10 +58,20 @@ public class VREditor : MonoBehaviour
             rightHandController,
             placeablePrefabs
         );
+
+        inVR = FindObjectOfType<XRDeviceSimulator>(false) == null;
     }
 
     void Update()
     {
+        if (inVR)
+            UpdateHandMenuPosition();
         
+    }
+
+    void UpdateHandMenuPosition()
+    {
+        handMenu.position = rightHandController.position;
+        handMenu.rotation = rightHandController.rotation;
     }
 }
