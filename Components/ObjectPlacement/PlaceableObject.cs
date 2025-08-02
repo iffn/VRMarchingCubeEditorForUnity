@@ -86,7 +86,8 @@ public class PlaceableObject : MonoBehaviour
 
         // Convert world space bounds to local space
         boxCollider.center = transform.InverseTransformPoint(combinedBounds.center);
-        boxCollider.size = transform.InverseTransformVector(combinedBounds.size);
+        Vector3 localSize = transform.InverseTransformVector(combinedBounds.max - combinedBounds.min);
+        boxCollider.size = new Vector3(Mathf.Abs(localSize.x), Mathf.Abs(localSize.y), Mathf.Abs(localSize.z));
     }
 
 }
