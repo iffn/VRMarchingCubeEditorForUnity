@@ -226,12 +226,30 @@ public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
                 {
                     handState.held = placeable;
 
-                    // Store relative offset
+                    // Position offset (same)
                     handState.offsetPos = Quaternion.Inverse(handTransform.rotation) *
                                           (placeable.transform.position - origin);
 
-                    handState.offsetRot = Quaternion.Inverse(handTransform.rotation) *
-                                          placeable.transform.rotation;
+                    // Rotation offset
+                    if (placeable.RemainVertical)
+                    {
+                        // Use only flat (horizontal) rotation of hand
+                        Vector3 handForwardFlat = handTransform.forward;
+                        handForwardFlat.y = 0;
+                        if (handForwardFlat == Vector3.zero)
+                            handForwardFlat = Vector3.forward;
+                        else
+                            handForwardFlat.Normalize();
+
+                        Quaternion handFlatRot = Quaternion.LookRotation(handForwardFlat, Vector3.up);
+
+                        handState.offsetRot = Quaternion.Inverse(handFlatRot) * placeable.transform.rotation;
+                    }
+                    else
+                    {
+                        handState.offsetRot = Quaternion.Inverse(handTransform.rotation) * placeable.transform.rotation;
+                    }
+
                     break;
                 }
             }
@@ -239,19 +257,21 @@ public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
 
         if (input.action.IsPressed() && handState.held != null)
         {
+            // Move object to correct position
             handState.held.transform.position = origin + handTransform.rotation * handState.offsetPos;
 
             if (handState.held.RemainVertical)
             {
+                // Use flat (horizontal) rotation
                 Vector3 flatForward = handTransform.forward;
                 flatForward.y = 0;
-                flatForward.Normalize();
 
                 if (flatForward == Vector3.zero)
                     flatForward = Vector3.forward;
+                else
+                    flatForward.Normalize();
 
                 Quaternion flatRotation = Quaternion.LookRotation(flatForward, Vector3.up);
-
                 handState.held.transform.rotation = flatRotation * handState.offsetRot;
             }
             else
