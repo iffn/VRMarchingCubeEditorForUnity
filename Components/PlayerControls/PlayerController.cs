@@ -98,13 +98,6 @@ public class PlayerController : MonoBehaviour, OptionUser
         defaultRadius = linkedCharacterController.radius;
         defaultCenter = linkedCharacterController.center;
 
-        increasePlayerSizeButton.action.Enable();
-        decreasePlayerSizeButton.action.Enable();
-        leftHandScaleActivator.action.Enable();
-        rightHandScaleActivator.action.Enable();
-        leftTeleportButton.action.Enable();
-        rightTeleportButton.action.Enable();
-
         List<string> movementStateNames = new List<string>(System.Enum.GetNames(typeof(MoveOptions)));
 
         movementStateSelector.Setup(this, movementStateNames, false, (int)defaultMovementOption);

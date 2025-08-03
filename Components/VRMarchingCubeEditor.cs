@@ -56,20 +56,12 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
     void OnEnable()
     {
-        editAction.action.Enable();
-        scaleToolOnY.action.Enable();
-        subtractButton.action.Enable();
-
         if(PlaceableByClick)
             PlaceableByClick.gameObject.SetActive(true);
     }
 
     void OnDisable()
     {
-        editAction.action.Disable();
-        scaleToolOnY.action.Disable();
-        subtractButton.action.Disable();
-
         try
         {
             PlaceableByClick.gameObject.SetActive(false);

@@ -7499,6 +7499,106 @@ MonoBehaviour:
   - {fileID: 5652773072378544547}
   - {fileID: 4006359431025835350}
   incrementalScalingObjects: []
+  allInputs:
+  - m_UseReference: 1
+    m_Action:
+      m_Name: Element 0
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: ce1a00ec-8622-4676-9d46-537da8d0a437
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 3842925744296952700, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+  - m_UseReference: 1
+    m_Action:
+      m_Name: Element 0
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: ce1a00ec-8622-4676-9d46-537da8d0a437
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -1135033248533279976, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+  - m_UseReference: 1
+    m_Action:
+      m_Name: Element 0
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: ce1a00ec-8622-4676-9d46-537da8d0a437
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 6767779624438223983, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+  - m_UseReference: 1
+    m_Action:
+      m_Name: Element 0
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: ce1a00ec-8622-4676-9d46-537da8d0a437
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 7093021296042320367, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+  - m_UseReference: 1
+    m_Action:
+      m_Name: Element 0
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: ce1a00ec-8622-4676-9d46-537da8d0a437
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 2143750626503939954, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+  - m_UseReference: 1
+    m_Action:
+      m_Name: Element 0
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: ce1a00ec-8622-4676-9d46-537da8d0a437
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 5833593269039067994, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+  - m_UseReference: 1
+    m_Action:
+      m_Name: Element 0
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: ce1a00ec-8622-4676-9d46-537da8d0a437
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 4272241828000498266, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+  - m_UseReference: 1
+    m_Action:
+      m_Name: Element 0
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: ce1a00ec-8622-4676-9d46-537da8d0a437
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -7463904747267343651, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
+  - m_UseReference: 1
+    m_Action:
+      m_Name: Element 0
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: ce1a00ec-8622-4676-9d46-537da8d0a437
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 5780621241780526649, guid: 000d3f9a8853b7549bbb55f9bd263a12, type: 3}
 --- !u!1 &6122087899116837830
 GameObject:
   m_ObjectHideFlags: 0

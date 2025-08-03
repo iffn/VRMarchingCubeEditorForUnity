@@ -87,10 +87,6 @@ public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
         leftHand = new HandState { held = null };
         rightHand = new HandState { held = null };
 
-        // Enable input actions
-        leftPickupInput.action.Enable();
-        rightPickupInput.action.Enable();
-
         List<string> toolNames = new List<string>(System.Enum.GetNames(typeof(Tools)));
 
         toolButtons.Setup(this, toolNames, false, (int)currentTool);

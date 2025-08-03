@@ -27,6 +27,7 @@ public class VREditor : MonoBehaviour
     [SerializeField] Transform handMenu;
     [SerializeField] List<Transform> directScalingObjects;
     [SerializeField] List<Transform> incrementalScalingObjects;
+    [SerializeField] List<InputActionProperty> allInputs;
 
     public List<PlaceableObject> PlaceablePrefabs => placeablePrefabs;
 
@@ -68,6 +69,11 @@ public class VREditor : MonoBehaviour
         );
 
         inVR = FindObjectOfType<XRDeviceSimulator>(false) == null;
+
+        foreach(InputActionProperty input in allInputs) // ToDo: Auto add them from asset
+        {
+            input.action.Enable();
+        }
     }
 
     void Update()
