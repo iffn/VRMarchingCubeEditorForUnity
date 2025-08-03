@@ -45,11 +45,16 @@ Goal: Use VR to design scenes.
 - [ ] Test - Fix object spawning, moving, duplicating and removing
 - [ ] Test - Implement separate player and editor controllers
 - [ ] Test - Implement start walking around from raycast position
-- [ ] Test - Bind UI to hand if Device Simulator not active
-- [ ] Test - Fix player scaling
-- [ ] Test - Scale rest of components when scaling
+- [x] Bind UI to hand if Device Simulator not active
+- [x] Fix player scaling
+- [x] Scale rest of components when scaling
 - [ ] Disable tools when entering walking mode
 - [ ] Implement undo on exit playmode
+- [ ] Implement load Marching Cube Editor on exit play mode
+- [ ] Implement paint optiosn as scriptable objects
+- [ ] Implement Save, Load and Save on exit playmode UI options for Marching Cube Editor
+- [ ] Backup, turn off and reset Static flag on Enter/Exit play mode
+- [ ] Capitalize enums for display
 - [ ] Improve runtime marching cube controller architecture
 - [ ] Apply marching cube data on exit play mode
 - [ ] Add namespaces
