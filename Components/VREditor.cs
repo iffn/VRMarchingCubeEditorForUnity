@@ -70,6 +70,11 @@ public class VREditor : MonoBehaviour
 
         inVR = FindObjectOfType<XRDeviceSimulator>(false) == null;
 
+        if (!inVR)
+        {
+            handMenu.GetChild(0).localScale = Vector3.one;
+        }
+
         foreach(InputActionProperty input in allInputs) // ToDo: Auto add them from asset
         {
             input.action.Enable();
@@ -79,10 +84,24 @@ public class VREditor : MonoBehaviour
     void Update()
     {
         if (inVR)
-            UpdateHandMenuPosition();
+            UpdateHandMenuPositionInVR();
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Home))
+            {
+                Transform characterTransform = linkedCharacterController.transform;
+
+                float scale = characterTransform.localScale.y;
+
+                handMenu.SetPositionAndRotation(
+                    characterTransform.position + scale * characterTransform.forward + scale * Vector3.up,
+                    Quaternion.Euler(0, 270, 0) * linkedCharacterController.transform.rotation
+                    );
+            }
+        }
     }
 
-    void UpdateHandMenuPosition()
+    void UpdateHandMenuPositionInVR()
     {
         handMenu.SetPositionAndRotation(rightHandController.position, rightHandController.rotation);
     }
