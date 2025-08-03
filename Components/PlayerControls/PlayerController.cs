@@ -205,7 +205,6 @@ public class PlayerController : MonoBehaviour, OptionUser
         }
     }
 
-
     void HandleScale()
     {
         if (leftHandScaleActivator.action.IsPressed() && rightHandScaleActivator.action.IsPressed())
@@ -221,7 +220,7 @@ public class PlayerController : MonoBehaviour, OptionUser
 
             float newHandDistancePlayerScale = HandDistanceWorld / CurrentPlayerScale;
 
-            float newScale = newHandDistancePlayerScale / initialHandDistancePlayerScale * initialScale;
+            float newScale = initialHandDistancePlayerScale * initialScale / newHandDistancePlayerScale;
 
             ScalePlayerAndScalingObjects(newScale);
 
