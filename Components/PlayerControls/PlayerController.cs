@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour, OptionUser
         rightLineRenderer.gameObject.SetActive(false);
     }
 
-    public void SetMoveOption(MoveOptions newMoveOption)
+    void SetMoveOption(MoveOptions newMoveOption)
     {
         switch (newMoveOption)
         {
@@ -163,6 +163,8 @@ public class PlayerController : MonoBehaviour, OptionUser
 
                 leftLineRenderer.gameObject.SetActive(false);
                 rightLineRenderer.gameObject.SetActive(false);
+
+                SetMoveOption(MoveOptions.walk);
             }
         }
     }
@@ -255,7 +257,11 @@ public class PlayerController : MonoBehaviour, OptionUser
                 leftLineRenderer.gameObject.SetActive(true);
                 rightLineRenderer.gameObject.SetActive(true);
             }
-
+            else
+            {
+                SetMoveOption((MoveOptions)optionIndex);
+            }
+            
             moveOption = (MoveOptions)optionIndex;
         }
     }
