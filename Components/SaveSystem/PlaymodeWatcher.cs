@@ -6,7 +6,6 @@ using UnityEngine;
 [InitializeOnLoad]
 public static class PlayModeWatcher
 {
-    public static bool SaveMarchingCubeData = true;
     public static bool SaveNewObjects = true;
     public static bool SaveMovedObjects = true;
 
@@ -54,12 +53,10 @@ public static class PlayModeWatcher
     private static void OnBeforeExitPlayMode()
     {
         // Capture data before it's lost
-        if (SaveMarchingCubeData)
+        foreach (VRMarchingCubeEditor editor in Object.FindObjectsOfType<VRMarchingCubeEditor>(true))
         {
-            foreach (VRMarchingCubeEditor editor in Object.FindObjectsOfType<VRMarchingCubeEditor>(true))
-            {
+            if(editor.SaveOnExitPlaymode)
                 editor.SaveMarchingCubeData();
-            }
         }
 
         foreach (ObjectPlacement editor in Object.FindObjectsOfType<ObjectPlacement>(true))

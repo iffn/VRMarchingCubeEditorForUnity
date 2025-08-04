@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 {
@@ -19,6 +20,17 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
     [SerializeField] byte clearColor = 0;
     [SerializeField] byte grassColor = 200;
     [SerializeField] byte pathColor = 255;
+    [SerializeField] Toggle SaveOnExitPlaymodeToggle;
+    [SerializeField] bool saveOnExitPlaymodeDefault;
+
+
+    public bool SaveOnExitPlaymode
+    {
+        get
+        {
+            return SaveOnExitPlaymodeToggle.isOn;
+        }
+    }
 
     PlaceableByClickHandler placeableByClickHandler;
 
@@ -116,6 +128,11 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
         SaveData();
     }
 
+    public void LoadMarchingCubeDataOnceSetupComplete()
+    {
+        LoadData();
+    }
+
     public void Setup(
         Transform toolOrigin,
         MarchingCubesController linkedMarchingCubeController
@@ -135,6 +152,8 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
         shapeSelector.Setup(this, new List<string>(placeableByClickHandler.EditShapeNames), false, 0);
 
         PlaceableByClick.gameObject.SetActive(enabled);
+
+        SaveOnExitPlaymodeToggle.SetIsOnWithoutNotify(saveOnExitPlaymodeDefault);
     }
 
     public void SelectOption(OptionSelector selector, int optionIndex)
