@@ -183,7 +183,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
     {
         if (editAction.action.IsPressed())
         {
-            BaseModificationTools.IVoxelModifier modifier = new BaseModificationTools.ChangeColorModifier(new Color32(0, 0, 0, grassColor), paintCurve, false, false, false, true);
+            BaseModificationTools.IVoxelModifier modifier = new BaseModificationTools.ChangeColorModifier(new Color32(0, 0, 0, color), paintCurve, false, false, false, true);
 
             linkedMarchingCubeController.ModificationManager.ModifyData(PlaceableByClick, modifier);
         }
