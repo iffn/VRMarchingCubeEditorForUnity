@@ -52,7 +52,7 @@ Goal: Use VR to design scenes.
 - [ ] Disable tools when entering walking mode
 - [ ] Implement undo on exit playmode
 - [ ] Implement load Marching Cube Editor on exit play mode
-- [ ] Implement paint optiosn as scriptable objects
+- [ ] Implement paint options as scriptable objects
 - [ ] Backup, turn off and reset Static flag on Enter/Exit play mode
 - [ ] Capitalize enums for display
 - [ ] Improve runtime marching cube controller architecture

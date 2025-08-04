@@ -15,6 +15,8 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
     [SerializeField] float scaleThreshold = 0.01f;
     [SerializeField] OptionSelector toolSelector;
     [SerializeField] OptionSelector shapeSelector;
+    [SerializeField] OptionSelector colorSelector;
+    [SerializeField] GameObject colorUITitle;
 
     [SerializeField] AnimationCurve paintCurve;
     [SerializeField] byte clearColor = 0;
@@ -22,7 +24,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
     [SerializeField] byte pathColor = 255;
     [SerializeField] Toggle SaveOnExitPlaymodeToggle;
     [SerializeField] bool saveOnExitPlaymodeDefault;
-
+    [SerializeField] List<PaintOption> paintOptions;
 
     public bool SaveOnExitPlaymode
     {
@@ -38,6 +40,8 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
     Transform toolOrigin;
     Tools currentTool = Tools.AddAndRemove;
+
+    int currentColor = 0;
 
     public List<Transform> IncrementalScalingObjects
     {
@@ -61,9 +65,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
         AddAndRemove,
         Smooth,
         Bridge,
-        PaintGrass,
-        PaintPath,
-        PaintClear
+        Paint
     }
 
     void OnEnable()
@@ -102,14 +104,8 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
                 break;
             case Tools.Bridge:
                 break;
-            case Tools.PaintGrass:
-                PaintAlpha(grassColor);
-                break;
-            case Tools.PaintPath:
-                PaintAlpha(pathColor);
-                break;
-            case Tools.PaintClear:
-                PaintAlpha(clearColor);
+            case Tools.Paint:
+                Paint();
                 break;
             default:
                 break;
@@ -154,6 +150,17 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
         PlaceableByClick.gameObject.SetActive(enabled);
 
         SaveOnExitPlaymodeToggle.SetIsOnWithoutNotify(saveOnExitPlaymodeDefault);
+
+        List<string> colorNames = new();
+
+        for(int i = 0; i< paintOptions.Count; i++)
+        {
+            colorNames.Add(paintOptions[i].name);
+        }
+
+        colorSelector.Setup(this, colorNames, false, (int)currentColor);
+
+        SetPaintUI();
     }
 
     public void SelectOption(OptionSelector selector, int optionIndex)
@@ -161,10 +168,16 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
         if(selector == toolSelector)
         {
             currentTool = (Tools)optionIndex;
+
+            SetPaintUI();
         }
         else if (selector == shapeSelector)
         {
             placeableByClickHandler.SelectShape(optionIndex);
+        }
+        else if(selector == colorSelector)
+        {
+            currentColor = optionIndex;
         }
     }
 
@@ -179,11 +192,20 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
         }
     }
 
-    void PaintAlpha(byte color)
+    void SetPaintUI()
+    {
+        bool nowPaint = currentTool == Tools.Paint;
+        colorSelector.gameObject.SetActive(nowPaint);
+        colorUITitle.SetActive(nowPaint);
+    }
+
+    void Paint()
     {
         if (editAction.action.IsPressed())
         {
-            BaseModificationTools.IVoxelModifier modifier = new BaseModificationTools.ChangeColorModifier(new Color32(0, 0, 0, color), paintCurve, false, false, false, true);
+            PaintOption selectedColor = paintOptions[currentColor];
+
+            BaseModificationTools.IVoxelModifier modifier = new BaseModificationTools.ChangeColorModifier(selectedColor.Color, paintCurve, selectedColor.paintRed, selectedColor.paintGreen, selectedColor.paintBlue, selectedColor.paintAlpha);
 
             linkedMarchingCubeController.ModificationManager.ModifyData(PlaceableByClick, modifier);
         }
