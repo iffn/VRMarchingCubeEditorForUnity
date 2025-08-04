@@ -37,7 +37,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
     EditShape PlaceableByClick => placeableByClickHandler.SelectedShape.AsEditShape;
 
     Transform toolOrigin;
-    Tools currentTool = Tools.addAndRemove;
+    Tools currentTool = Tools.AddAndRemove;
 
     public List<Transform> IncrementalScalingObjects
     {
@@ -58,12 +58,12 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
     enum Tools
     {
-        addAndRemove,
-        smooth,
-        bridge,
-        paintGrass,
-        paintPath,
-        paintClear
+        AddAndRemove,
+        Smooth,
+        Bridge,
+        PaintGrass,
+        PaintPath,
+        PaintClear
     }
 
     void OnEnable()
@@ -95,20 +95,20 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
         switch (currentTool)
         {
-            case Tools.addAndRemove:
+            case Tools.AddAndRemove:
                 AddAndRemoveUpdate();
                 break;
-            case Tools.smooth:
+            case Tools.Smooth:
                 break;
-            case Tools.bridge:
+            case Tools.Bridge:
                 break;
-            case Tools.paintGrass:
+            case Tools.PaintGrass:
                 PaintAlpha(grassColor);
                 break;
-            case Tools.paintPath:
+            case Tools.PaintPath:
                 PaintAlpha(pathColor);
                 break;
-            case Tools.paintClear:
+            case Tools.PaintClear:
                 PaintAlpha(clearColor);
                 break;
             default:
