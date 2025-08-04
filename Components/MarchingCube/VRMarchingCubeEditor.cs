@@ -23,8 +23,13 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
     [SerializeField] byte grassColor = 200;
     [SerializeField] byte pathColor = 255;
     [SerializeField] Toggle SaveOnExitPlaymodeToggle;
-    [SerializeField] bool saveOnExitPlaymodeDefault;
-    [SerializeField] List<PaintOption> paintOptions;
+    [SerializeField] bool saveOnExitPlaymodeDefault = true;
+
+    List<PaintOption> paintOptions;
+    PlaceableByClickHandler placeableByClickHandler;
+    Transform toolOrigin;
+    Tools currentTool = Tools.AddAndRemove;
+    int currentColor = 0;
 
     public bool SaveOnExitPlaymode
     {
@@ -33,15 +38,8 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
             return SaveOnExitPlaymodeToggle.isOn;
         }
     }
-
-    PlaceableByClickHandler placeableByClickHandler;
-
     EditShape PlaceableByClick => placeableByClickHandler.SelectedShape.AsEditShape;
 
-    Transform toolOrigin;
-    Tools currentTool = Tools.AddAndRemove;
-
-    int currentColor = 0;
 
     public List<Transform> IncrementalScalingObjects
     {
@@ -131,11 +129,13 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
     public void Setup(
         Transform toolOrigin,
-        MarchingCubesController linkedMarchingCubeController
+        MarchingCubesController linkedMarchingCubeController,
+        List<PaintOption> paintOptions
         )
     {
         this.toolOrigin = toolOrigin;
         this.linkedMarchingCubeController = linkedMarchingCubeController;
+        this.paintOptions = paintOptions;
 
         InitializeController();
 
