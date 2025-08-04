@@ -42,9 +42,9 @@ Goal: Use VR to design scenes.
 ## ToDo
 ### Soon
 - [x] Implement different MarchingCube tools and shapes
-- [ ] Test - Fix object spawning, moving, duplicating and removing
-- [ ] Test - Implement separate player and editor controllers
-- [ ] Test - Implement start walking around from raycast position
+- [x] Fix object spawning, moving, duplicating and removing
+- [x] Implement separate player and editor controllers
+- [x] Implement start walking around from raycast position
 - [x] Bind UI to hand if Device Simulator not active
 - [x] Fix player scaling
 - [x] Scale rest of components when scaling
