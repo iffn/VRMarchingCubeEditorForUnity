@@ -35,6 +35,30 @@ public class TransferAsset : ScriptableObject
         SaveAssetInEditor();
     }
 
+    public void SaveAndDisableStaticFlags(List<PlaceableObject> initialMoveableObjects)
+    {
+        wasSetToStatic = new();
+
+        for (int i = 0; i < initialMoveableObjects.Count; i++)
+        {
+            List<StaticEditorFlags> treeWasSetToStatic = new();
+
+            GameObject moveableObject = initialMoveableObjects[i].gameObject;
+
+            treeWasSetToStatic.Add(GameObjectUtility.GetStaticEditorFlags(moveableObject));
+            GameObjectUtility.SetStaticEditorFlags(moveableObject, (StaticEditorFlags)0);
+
+            // Add each child
+            foreach (Transform child in moveableObject.transform.GetComponentsInChildren<Transform>())
+            {
+                treeWasSetToStatic.Add(GameObjectUtility.GetStaticEditorFlags(child.gameObject));
+                GameObjectUtility.SetStaticEditorFlags(child.gameObject, (StaticEditorFlags)0);
+            }
+
+            wasSetToStatic.Add(treeWasSetToStatic);
+        }
+    }
+
     //public void StoreObjects(PlaceableObject[] moveableObjects, List<int> placedObjectIndexes, List<PlaceableObject> placedObjects)
     public void StoreObjects(
         List<PlaceableObject> placeableObjectsByIndex,
@@ -76,8 +100,28 @@ public class TransferAsset : ScriptableObject
         List<PlaceableObject> removedExistingObjects
         )
     {
+        // Static flags
+        for (int i = 0; i < initialMoveableObjects.Count; i++)
+        {
+            List<StaticEditorFlags> treeWasSetToStatic = wasSetToStatic[i];
+
+            GameObject moveableObject = initialMoveableObjects[i].gameObject;
+
+            treeWasSetToStatic.Add(GameObjectUtility.GetStaticEditorFlags(moveableObject));
+            GameObjectUtility.SetStaticEditorFlags(moveableObject, treeWasSetToStatic[0]);
+
+            // Add each child
+            int j = 1;
+            foreach (Transform child in moveableObject.transform.GetComponentsInChildren<Transform>())
+            {
+                GameObjectUtility.SetStaticEditorFlags(child.gameObject, treeWasSetToStatic[j++]);
+            }
+
+            wasSetToStatic.Add(treeWasSetToStatic);
+        }
+
         // Moved objects
-        for(int i = 0; i < initialMoveableObjects.Count; i++)
+        for (int i = 0; i < initialMoveableObjects.Count; i++)
         {
             initialMoveableObjects[i].transform.position = movedObjectPositions[i];
             initialMoveableObjects[i].transform.rotation = movedObjectRotations[i];
