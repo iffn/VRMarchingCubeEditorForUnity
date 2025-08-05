@@ -38,7 +38,12 @@ public static class PlayModeWatcher
 
     private static void OnBeforeEnterPlayMode()
     {
-        
+        foreach (ObjectPlacement editor in Object.FindObjectsOfType<ObjectPlacement>(true))
+        {
+            editor.GatherObjects();
+            editor.SaveAndDisableStaticFlags();
+            break;
+        }
     }
 
     private static void OnAfterEnterPlayMode()

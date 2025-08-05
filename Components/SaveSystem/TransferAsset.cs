@@ -16,6 +16,24 @@ public class TransferAsset : ScriptableObject
     public List<Vector3> movedObjectScales;
 
     public List<int> removedObjectIndexes;
+    public List<List<StaticEditorFlags>> wasSetToStatic;
+
+    public void ClearTransferDataAndSaveAsset()
+    {
+        placedObjectIndexes.Clear();
+        placedObjectPositions.Clear();
+        placedObjectRotations.Clear();
+        placedObjectScales.Clear();
+
+        movedObjectPositions.Clear();
+        movedObjectRotations.Clear();
+        movedObjectScales.Clear();
+
+        removedObjectIndexes.Clear();
+        wasSetToStatic.Clear();
+
+        SaveAssetInEditor();
+    }
 
     //public void StoreObjects(PlaceableObject[] moveableObjects, List<int> placedObjectIndexes, List<PlaceableObject> placedObjects)
     public void StoreObjects(
@@ -103,18 +121,5 @@ public class TransferAsset : ScriptableObject
         EditorUtility.SetDirty(this);
         AssetDatabase.SaveAssets();
 #endif
-    }
-
-    public void ClearTransferDataAndSaveAsset()
-    {
-        placedObjectIndexes.Clear();
-        placedObjectPositions.Clear();
-        placedObjectRotations.Clear();
-        placedObjectScales.Clear();
-        movedObjectPositions.Clear();
-        movedObjectRotations.Clear();
-        movedObjectScales.Clear();
-
-        SaveAssetInEditor();
     }
 }
