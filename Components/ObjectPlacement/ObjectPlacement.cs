@@ -147,7 +147,7 @@ public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
             GameObjectUtility.SetStaticEditorFlags(moveableObject, (StaticEditorFlags)0);
 
             // Add each child
-            foreach (Transform child in transform.GetComponentsInChildren<Transform>())
+            foreach (Transform child in moveableObject.transform.GetComponentsInChildren<Transform>())
             {
                 treeWasSetToStatic.Add(GameObjectUtility.GetStaticEditorFlags(child.gameObject));
                 GameObjectUtility.SetStaticEditorFlags(child.gameObject, (StaticEditorFlags)0);
@@ -174,7 +174,7 @@ public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
 
             // Add each child
             int j = 1;
-            foreach (Transform child in transform.GetComponentsInChildren<Transform>())
+            foreach (Transform child in moveableObject.transform.GetComponentsInChildren<Transform>())
             {
                 GameObjectUtility.SetStaticEditorFlags(child.gameObject, treeWasSetToStatic[j++]);
             }
