@@ -51,14 +51,15 @@ Goal: Use VR to design scenes.
 - [ ] Test - Implement Save, Load and Save on exit playmode UI options for Marching Cube Editor
 - [ ] Test - Implement paint options as scriptable objects
 - [ ] Test - Backup, turn off and reset Static flag on Enter/Exit play mode
+- [ ] Test - Capitalize enums for display
 - [ ] Disable tools when entering walking mode
 - [ ] Implement undo on exit playmode
-- [ ] Implement load Marching Cube Editor on exit play mode
-- [ ] Capitalize enums for display
-- [ ] Improve runtime marching cube controller architecture
 - [ ] Apply marching cube data on exit play mode
+- [ ] Improve runtime marching cube controller architecture
 - [ ] Fix ToggleReferenceOnEnable when MarchingCube UI GameObject is enabled in the prefab
 - [ ] Add namespaces
+- [ ] Set the initial scale of all edit shapes
+- [ ] Swap between different height maps
 
 ### Later
 - [ ] Implement light settings
