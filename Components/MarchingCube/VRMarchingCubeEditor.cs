@@ -19,9 +19,6 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
     [SerializeField] GameObject colorUITitle;
 
     [SerializeField] AnimationCurve paintCurve;
-    [SerializeField] byte clearColor = 0;
-    [SerializeField] byte grassColor = 200;
-    [SerializeField] byte pathColor = 255;
     [SerializeField] Toggle SaveOnExitPlaymodeToggle;
     [SerializeField] bool saveOnExitPlaymodeDefault = true;
 
