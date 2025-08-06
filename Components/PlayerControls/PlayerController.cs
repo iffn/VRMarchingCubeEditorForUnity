@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour, OptionUser
                 leftLineRenderer.gameObject.SetActive(false);
                 rightLineRenderer.gameObject.SetActive(false);
 
-                SetMoveOption(MoveOptions.walk);
+                SetMoveOption(MoveOptions.Walk);
             }
         }
     }
