@@ -14,6 +14,7 @@ public class VREditor : MonoBehaviour
     [Header("Scene specific")]
     [SerializeField] MarchingCubesController linkedMarchingCubesController;
     [SerializeField] List<PlaceableObject> placeablePrefabs;
+    [SerializeField] List<PaintOption> paintOptions;
 
     [Header("Prefab")]
     [SerializeField] DynamicMoveProvider linkedMoveProvider;
@@ -46,7 +47,8 @@ public class VREditor : MonoBehaviour
     {
         linkedVRMarchingCubeEditor.Setup(
             toolOrigin,
-            linkedMarchingCubesController
+            linkedMarchingCubesController,
+            paintOptions
         );
 
         List<Transform> completeIncrementalScalingObjects = new(incrementalScalingObjects);

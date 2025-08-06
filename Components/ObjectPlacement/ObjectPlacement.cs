@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -130,6 +131,11 @@ public class ObjectPlacement : MonoBehaviour, OptionUser, IButtonListUser
             allObjectsInScene[i].placingIndex = placeablePrefabs.Count + i;
             placeableObjectsByIndex.Add(allObjectsInScene[i]);
         }
+    }
+
+    public void SaveAndDisableStaticFlags()
+    {
+        objectTransferAsset.SaveAndDisableStaticFlags(initialMoveableObjects);
     }
 
     public void StoreObjects()

@@ -42,22 +42,24 @@ Goal: Use VR to design scenes.
 ## ToDo
 ### Soon
 - [x] Implement different MarchingCube tools and shapes
-- [ ] Test - Fix object spawning, moving, duplicating and removing
-- [ ] Test - Implement separate player and editor controllers
-- [ ] Test - Implement start walking around from raycast position
+- [x] Fix object spawning, moving, duplicating and removing
+- [x] Implement separate player and editor controllers
+- [x] Implement start walking around from raycast position
 - [x] Bind UI to hand if Device Simulator not active
 - [x] Fix player scaling
 - [x] Scale rest of components when scaling
+- [ ] Test - Implement Save, Load and Save on exit playmode UI options for Marching Cube Editor
+- [ ] Test - Implement paint options as scriptable objects
+- [ ] Test - Backup, turn off and reset Static flag on Enter/Exit play mode
+- [ ] Test - Capitalize enums for display
 - [ ] Disable tools when entering walking mode
 - [ ] Implement undo on exit playmode
-- [ ] Implement load Marching Cube Editor on exit play mode
-- [ ] Implement paint optiosn as scriptable objects
-- [ ] Implement Save, Load and Save on exit playmode UI options for Marching Cube Editor
-- [ ] Backup, turn off and reset Static flag on Enter/Exit play mode
-- [ ] Capitalize enums for display
-- [ ] Improve runtime marching cube controller architecture
 - [ ] Apply marching cube data on exit play mode
+- [ ] Improve runtime marching cube controller architecture
+- [ ] Fix ToggleReferenceOnEnable when MarchingCube UI GameObject is enabled in the prefab
 - [ ] Add namespaces
+- [ ] Set the initial scale of all edit shapes
+- [ ] Swap between different height maps
 
 ### Later
 - [ ] Implement light settings

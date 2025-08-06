@@ -12,6 +12,8 @@ public class OptionSelector : MonoBehaviour
     int currentOption = -1;
     OptionUser linkedOptionUser;
 
+    const float lineHeight = 0.1394111f;
+    const int buttonsPerRow = 4;
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +71,10 @@ public class OptionSelector : MonoBehaviour
             defaultOption = buttonNames.Count - 1;
 
         SelectOption(defaultOption);
+
+        float height = (buttons.Count / buttonsPerRow + (buttons.Count % buttonsPerRow > 0 ? 1 : 0)) * lineHeight;
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, height);
     }
 
     void SetupButton(Button button, int index, string name)

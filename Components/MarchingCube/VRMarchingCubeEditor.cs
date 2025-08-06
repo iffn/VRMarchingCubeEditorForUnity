@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 {
@@ -14,24 +15,37 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
     [SerializeField] float scaleThreshold = 0.01f;
     [SerializeField] OptionSelector toolSelector;
     [SerializeField] OptionSelector shapeSelector;
+    [SerializeField] OptionSelector colorSelector;
+    [SerializeField] GameObject colorUITitle;
 
     [SerializeField] AnimationCurve paintCurve;
-    [SerializeField] byte clearColor = 0;
-    [SerializeField] byte grassColor = 200;
-    [SerializeField] byte pathColor = 255;
+    [SerializeField] Toggle SaveOnExitPlaymodeToggle;
+    [SerializeField] bool saveOnExitPlaymodeDefault = true;
 
+    MarchingCubesController linkedMarchingCubeController;
+    protected override MarchingCubesController LinkedMarchingCubeController => linkedMarchingCubeController;
+
+    List<PaintOption> paintOptions;
     PlaceableByClickHandler placeableByClickHandler;
+    Transform toolOrigin;
+    Tools currentTool = Tools.AddAndRemove;
+    int currentColor = 0;
 
+    public bool SaveOnExitPlaymode
+    {
+        get
+        {
+            return SaveOnExitPlaymodeToggle.isOn;
+        }
+    }
     EditShape PlaceableByClick => placeableByClickHandler.SelectedShape.AsEditShape;
 
-    Transform toolOrigin;
-    Tools currentTool = Tools.addAndRemove;
 
     public List<Transform> IncrementalScalingObjects
     {
         get
         {
-            List<Transform> returnLIst = new ();
+            List<Transform> returnLIst = new();
 
             List<IPlaceableByClick> editShapes = placeableByClickHandler.EditShapes;
 
@@ -46,17 +60,15 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
     enum Tools
     {
-        addAndRemove,
-        smooth,
-        bridge,
-        paintGrass,
-        paintPath,
-        paintClear
+        AddAndRemove,
+        Smooth,
+        Bridge,
+        Paint
     }
 
     void OnEnable()
     {
-        if(PlaceableByClick)
+        if (PlaceableByClick)
             PlaceableByClick.gameObject.SetActive(true);
     }
 
@@ -83,21 +95,15 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
         switch (currentTool)
         {
-            case Tools.addAndRemove:
+            case Tools.AddAndRemove:
                 AddAndRemoveUpdate();
                 break;
-            case Tools.smooth:
+            case Tools.Smooth:
                 break;
-            case Tools.bridge:
+            case Tools.Bridge:
                 break;
-            case Tools.paintGrass:
-                PaintAlpha(grassColor);
-                break;
-            case Tools.paintPath:
-                PaintAlpha(pathColor);
-                break;
-            case Tools.paintClear:
-                PaintAlpha(clearColor);
+            case Tools.Paint:
+                Paint();
                 break;
             default:
                 break;
@@ -116,13 +122,20 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
         SaveData();
     }
 
+    public void LoadMarchingCubeDataOnceSetupComplete()
+    {
+        LoadData();
+    }
+
     public void Setup(
         Transform toolOrigin,
-        MarchingCubesController linkedMarchingCubeController
+        MarchingCubesController linkedMarchingCubeController,
+        List<PaintOption> paintOptions
         )
     {
         this.toolOrigin = toolOrigin;
         this.linkedMarchingCubeController = linkedMarchingCubeController;
+        this.paintOptions = paintOptions;
 
         InitializeController();
 
@@ -135,17 +148,36 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
         shapeSelector.Setup(this, new List<string>(placeableByClickHandler.EditShapeNames), false, 0);
 
         PlaceableByClick.gameObject.SetActive(enabled);
+
+        SaveOnExitPlaymodeToggle.SetIsOnWithoutNotify(saveOnExitPlaymodeDefault);
+
+        List<string> colorNames = new();
+
+        for (int i = 0; i < paintOptions.Count; i++)
+        {
+            colorNames.Add(paintOptions[i].name);
+        }
+
+        colorSelector.Setup(this, colorNames, false, (int)currentColor);
+
+        SetPaintUI();
     }
 
     public void SelectOption(OptionSelector selector, int optionIndex)
     {
-        if(selector == toolSelector)
+        if (selector == toolSelector)
         {
             currentTool = (Tools)optionIndex;
+
+            SetPaintUI();
         }
         else if (selector == shapeSelector)
         {
             placeableByClickHandler.SelectShape(optionIndex);
+        }
+        else if (selector == colorSelector)
+        {
+            currentColor = optionIndex;
         }
     }
 
@@ -156,17 +188,26 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
             BaseModificationTools.IVoxelModifier modifier = subtractButton.action.IsPressed() ?
             new BaseModificationTools.SubtractShapeModifier() : new BaseModificationTools.AddShapeModifier();
 
-            linkedMarchingCubeController.ModificationManager.ModifyData(PlaceableByClick, modifier);
+            LinkedMarchingCubeController.ModificationManager.ModifyData(PlaceableByClick, modifier);
         }
     }
 
-    void PaintAlpha(byte color)
+    void SetPaintUI()
+    {
+        bool nowPaint = currentTool == Tools.Paint;
+        colorSelector.gameObject.SetActive(nowPaint);
+        colorUITitle.SetActive(nowPaint);
+    }
+
+    void Paint()
     {
         if (editAction.action.IsPressed())
         {
-            BaseModificationTools.IVoxelModifier modifier = new BaseModificationTools.ChangeColorModifier(new Color32(0, 0, 0, grassColor), paintCurve, false, false, false, true);
+            PaintOption selectedColor = paintOptions[currentColor];
 
-            linkedMarchingCubeController.ModificationManager.ModifyData(PlaceableByClick, modifier);
+            BaseModificationTools.IVoxelModifier modifier = new BaseModificationTools.ChangeColorModifier(selectedColor.Color, paintCurve, selectedColor.paintRed, selectedColor.paintGreen, selectedColor.paintBlue, selectedColor.paintAlpha);
+
+            LinkedMarchingCubeController.ModificationManager.ModifyData(PlaceableByClick, modifier);
         }
     }
 }

@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour, OptionUser
     [SerializeField] InputActionProperty leftTeleportButton;
     [SerializeField] InputActionProperty rightTeleportButton;
 
-    [SerializeField] MoveOptions defaultMovementOption = MoveOptions.scalingGhost;
+    [SerializeField] MoveOptions defaultMovementOption = MoveOptions.ScalingGhost;
 
     [SerializeField] Transform leftLineRenderer;
     [SerializeField] Transform rightLineRenderer;
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour, OptionUser
     List<Transform> incrementalScalingObjects;
 
     DynamicMoveProvider linkedMoveProvider;
-    MoveOptions moveOption = MoveOptions.scalingGhost;
+    MoveOptions moveOption = MoveOptions.ScalingGhost;
 
     float CurrentPlayerScale => linkedCharacterController.transform.localScale.x;
     Vector3 ControllerCenterWorld => 0.5f * (leftHandController.transform.position + rightHandController.transform.position);
@@ -50,8 +50,8 @@ public class PlayerController : MonoBehaviour, OptionUser
 
     public enum MoveOptions
     {
-        walk,
-        scalingGhost
+        Walk,
+        ScalingGhost
     }
 
     // Start is called before the first frame update
@@ -65,10 +65,10 @@ public class PlayerController : MonoBehaviour, OptionUser
     {
         switch (moveOption)
         {
-            case MoveOptions.walk:
+            case MoveOptions.Walk:
                 WalkingUpdate();
                 break;
-            case MoveOptions.scalingGhost:
+            case MoveOptions.ScalingGhost:
                 ScalingGhostUpdate();
                 break;
             default:
@@ -112,12 +112,12 @@ public class PlayerController : MonoBehaviour, OptionUser
     {
         switch (newMoveOption)
         {
-            case MoveOptions.walk:
+            case MoveOptions.Walk:
                 linkedCharacterController.includeLayers = walkIncludeLayers;
                 linkedCharacterController.excludeLayers = walkExcludeLayers;
                 linkedMoveProvider.useGravity = true;
                 break;
-            case MoveOptions.scalingGhost:
+            case MoveOptions.ScalingGhost:
                 linkedCharacterController.includeLayers = scalingGhostIncludeLayers;
                 linkedCharacterController.excludeLayers = scalingGhostExcludeLayers;
                 linkedMoveProvider.useGravity = false;
@@ -251,7 +251,7 @@ public class PlayerController : MonoBehaviour, OptionUser
     {
         if(selector == movementStateSelector)
         {
-            if(optionIndex == (int)MoveOptions.walk)
+            if(optionIndex == (int)MoveOptions.Walk)
             {
                 selectStartingPoint = true;
                 leftLineRenderer.gameObject.SetActive(true);

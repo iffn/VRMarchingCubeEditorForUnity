@@ -16,6 +16,56 @@ public class TransferAsset : ScriptableObject
     public List<Vector3> movedObjectScales;
 
     public List<int> removedObjectIndexes;
+    public List<StaticEditorFlagsList> wasSetToStatic;
+
+    [System.Serializable]
+    public class StaticEditorFlagsList
+    {
+        public List<StaticEditorFlags> flags = new List<StaticEditorFlags>();
+
+        public StaticEditorFlagsList(List<StaticEditorFlags> flags)
+        {
+            this.flags = flags;
+        }
+    }
+
+    public void ClearTransferDataAndSaveAsset()
+    {
+        placedObjectIndexes.Clear();
+        placedObjectPositions.Clear();
+        placedObjectRotations.Clear();
+        placedObjectScales.Clear();
+
+        movedObjectPositions.Clear();
+        movedObjectRotations.Clear();
+        movedObjectScales.Clear();
+
+        removedObjectIndexes.Clear();
+        wasSetToStatic.Clear();
+
+        SaveAssetInEditor();
+    }
+
+    public void SaveAndDisableStaticFlags(List<PlaceableObject> initialMoveableObjects)
+    {
+        wasSetToStatic = new();
+
+        for (int i = 0; i < initialMoveableObjects.Count; i++)
+        {
+            List<StaticEditorFlags> treeWasSetToStatic = new();
+
+            GameObject moveableObject = initialMoveableObjects[i].gameObject;
+
+            // Add each child
+            foreach (Transform child in moveableObject.transform.GetComponentsInChildren<Transform>())
+            {
+                treeWasSetToStatic.Add(GameObjectUtility.GetStaticEditorFlags(child.gameObject));
+                GameObjectUtility.SetStaticEditorFlags(child.gameObject, (StaticEditorFlags)0);
+            }
+
+            wasSetToStatic.Add(new StaticEditorFlagsList(treeWasSetToStatic));
+        }
+    }
 
     //public void StoreObjects(PlaceableObject[] moveableObjects, List<int> placedObjectIndexes, List<PlaceableObject> placedObjects)
     public void StoreObjects(
@@ -58,8 +108,23 @@ public class TransferAsset : ScriptableObject
         List<PlaceableObject> removedExistingObjects
         )
     {
+        // Static flags
+        for (int i = 0; i < initialMoveableObjects.Count; i++)
+        {
+            List<StaticEditorFlags> treeWasSetToStatic = wasSetToStatic[i].flags;
+
+            GameObject moveableObject = initialMoveableObjects[i].gameObject;
+
+            // Add each child
+            int j = 0;
+            foreach (Transform child in moveableObject.transform.GetComponentsInChildren<Transform>())
+            {
+                GameObjectUtility.SetStaticEditorFlags(child.gameObject, treeWasSetToStatic[j++]);
+            }
+        }
+
         // Moved objects
-        for(int i = 0; i < initialMoveableObjects.Count; i++)
+        for (int i = 0; i < initialMoveableObjects.Count; i++)
         {
             initialMoveableObjects[i].transform.position = movedObjectPositions[i];
             initialMoveableObjects[i].transform.rotation = movedObjectRotations[i];
@@ -103,18 +168,5 @@ public class TransferAsset : ScriptableObject
         EditorUtility.SetDirty(this);
         AssetDatabase.SaveAssets();
 #endif
-    }
-
-    public void ClearTransferDataAndSaveAsset()
-    {
-        placedObjectIndexes.Clear();
-        placedObjectPositions.Clear();
-        placedObjectRotations.Clear();
-        placedObjectScales.Clear();
-        movedObjectPositions.Clear();
-        movedObjectRotations.Clear();
-        movedObjectScales.Clear();
-
-        SaveAssetInEditor();
     }
 }
