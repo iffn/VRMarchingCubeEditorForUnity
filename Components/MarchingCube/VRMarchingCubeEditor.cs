@@ -25,6 +25,9 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
     [SerializeField] Toggle SaveOnExitPlaymodeToggle;
     [SerializeField] bool saveOnExitPlaymodeDefault = true;
 
+    MarchingCubesController linkedMarchingCubeController;
+    protected override MarchingCubesController LinkedMarchingCubeController => linkedMarchingCubeController;
+
     List<PaintOption> paintOptions;
     PlaceableByClickHandler placeableByClickHandler;
     Transform toolOrigin;
@@ -45,7 +48,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
     {
         get
         {
-            List<Transform> returnLIst = new ();
+            List<Transform> returnLIst = new();
 
             List<IPlaceableByClick> editShapes = placeableByClickHandler.EditShapes;
 
@@ -68,7 +71,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
     void OnEnable()
     {
-        if(PlaceableByClick)
+        if (PlaceableByClick)
             PlaceableByClick.gameObject.SetActive(true);
     }
 
@@ -153,7 +156,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
         List<string> colorNames = new();
 
-        for(int i = 0; i< paintOptions.Count; i++)
+        for (int i = 0; i < paintOptions.Count; i++)
         {
             colorNames.Add(paintOptions[i].name);
         }
@@ -165,7 +168,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
     public void SelectOption(OptionSelector selector, int optionIndex)
     {
-        if(selector == toolSelector)
+        if (selector == toolSelector)
         {
             currentTool = (Tools)optionIndex;
 
@@ -175,7 +178,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
         {
             placeableByClickHandler.SelectShape(optionIndex);
         }
-        else if(selector == colorSelector)
+        else if (selector == colorSelector)
         {
             currentColor = optionIndex;
         }
@@ -188,7 +191,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
             BaseModificationTools.IVoxelModifier modifier = subtractButton.action.IsPressed() ?
             new BaseModificationTools.SubtractShapeModifier() : new BaseModificationTools.AddShapeModifier();
 
-            linkedMarchingCubeController.ModificationManager.ModifyData(PlaceableByClick, modifier);
+            LinkedMarchingCubeController.ModificationManager.ModifyData(PlaceableByClick, modifier);
         }
     }
 
@@ -207,7 +210,7 @@ public class VRMarchingCubeEditor : PlaymodeEditor, OptionUser
 
             BaseModificationTools.IVoxelModifier modifier = new BaseModificationTools.ChangeColorModifier(selectedColor.Color, paintCurve, selectedColor.paintRed, selectedColor.paintGreen, selectedColor.paintBlue, selectedColor.paintAlpha);
 
-            linkedMarchingCubeController.ModificationManager.ModifyData(PlaceableByClick, modifier);
+            LinkedMarchingCubeController.ModificationManager.ModifyData(PlaceableByClick, modifier);
         }
     }
 }
