@@ -16,7 +16,18 @@ public class TransferAsset : ScriptableObject
     public List<Vector3> movedObjectScales;
 
     public List<int> removedObjectIndexes;
-    public List<List<StaticEditorFlags>> wasSetToStatic;
+    public List<StaticEditorFlagsList> wasSetToStatic;
+
+    [System.Serializable]
+    public class StaticEditorFlagsList
+    {
+        public List<StaticEditorFlags> flags = new List<StaticEditorFlags>();
+
+        public StaticEditorFlagsList(List<StaticEditorFlags> flags)
+        {
+            this.flags = flags;
+        }
+    }
 
     public void ClearTransferDataAndSaveAsset()
     {
@@ -45,9 +56,6 @@ public class TransferAsset : ScriptableObject
 
             GameObject moveableObject = initialMoveableObjects[i].gameObject;
 
-            treeWasSetToStatic.Add(GameObjectUtility.GetStaticEditorFlags(moveableObject));
-            GameObjectUtility.SetStaticEditorFlags(moveableObject, (StaticEditorFlags)0);
-
             // Add each child
             foreach (Transform child in moveableObject.transform.GetComponentsInChildren<Transform>())
             {
@@ -55,7 +63,7 @@ public class TransferAsset : ScriptableObject
                 GameObjectUtility.SetStaticEditorFlags(child.gameObject, (StaticEditorFlags)0);
             }
 
-            wasSetToStatic.Add(treeWasSetToStatic);
+            wasSetToStatic.Add(new StaticEditorFlagsList(treeWasSetToStatic));
         }
     }
 
@@ -103,21 +111,16 @@ public class TransferAsset : ScriptableObject
         // Static flags
         for (int i = 0; i < initialMoveableObjects.Count; i++)
         {
-            List<StaticEditorFlags> treeWasSetToStatic = wasSetToStatic[i];
+            List<StaticEditorFlags> treeWasSetToStatic = wasSetToStatic[i].flags;
 
             GameObject moveableObject = initialMoveableObjects[i].gameObject;
 
-            treeWasSetToStatic.Add(GameObjectUtility.GetStaticEditorFlags(moveableObject));
-            GameObjectUtility.SetStaticEditorFlags(moveableObject, treeWasSetToStatic[0]);
-
             // Add each child
-            int j = 1;
+            int j = 0;
             foreach (Transform child in moveableObject.transform.GetComponentsInChildren<Transform>())
             {
                 GameObjectUtility.SetStaticEditorFlags(child.gameObject, treeWasSetToStatic[j++]);
             }
-
-            wasSetToStatic.Add(treeWasSetToStatic);
         }
 
         // Moved objects
