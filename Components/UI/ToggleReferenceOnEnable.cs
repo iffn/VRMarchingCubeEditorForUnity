@@ -6,16 +6,16 @@ public class ToggleReferenceOnEnable : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] List<GameObject> referenceObjects;
-
-    /*
+    
     void Start()
     {
-        foreach(GameObject referenceObject in referenceObjects)
+        // Fix, VRMarchingCubeEditor does not get disabled early enough
+        foreach (GameObject referenceObject in referenceObjects)
         {
             referenceObject.SetActive(gameObject.activeSelf);
         }
     }
-    */
+    
 
     void OnEnable()
     {
@@ -39,7 +39,7 @@ public class ToggleReferenceOnEnable : MonoBehaviour
 
         }
     }
-    /*
+    
     void OnDisable()
     {
         foreach (GameObject referenceObject in referenceObjects)
@@ -54,5 +54,4 @@ public class ToggleReferenceOnEnable : MonoBehaviour
             }
         }
     }
-    */
 }
